@@ -27,36 +27,34 @@ jobs:
     - name: Login to ghcr.io
       shell: bash
       run: podman login ghcr.io -u emblem-66 -p ${{ secrets.GITHUB_TOKEN }}
-    #- name: Build Image
-    #  shell: bash
-    #  run: podman build . -t ghcr.io/emblem-66/silverblue:latest
     
     - name: Maximize build disk space (Only remove unwanted software)
       uses: AdityaGarg8/remove-unwanted-software@v5
-      #with:
-      #    remove-android: 'true'
-      #    remove-dotnet: 'true'
-      #    remove-haskell: 'true'
-      #    remove-codeql: 'true'
-      #    remove-docker-images: 'true'
-      #    remove-large-packages: 'true'
-      #    remove-cached-tools: 'true'
-      #    remove-swapfile: 'true'
+      with:
+          remove-android: 'true'
+          remove-dotnet: 'true'
+          remove-haskell: 'true'
+          remove-codeql: 'true'
+          remove-docker-images: 'true'
+          remove-large-packages: 'true'
+          remove-cached-tools: 'true'
+          remove-swapfile: 'true'
 
     - name: Build Base Image
       shell: bash
-      #run: podman build -f Containerfile -t ghcr.io/emblem-66/test2:silverblue
       run: podman build -f Containerfile -t ghcr.io/emblem-66/test2:base --target base .
    
     - name: Build Silverblue Image
       shell: bash
-      #run: podman build -f Containerfile -t ghcr.io/emblem-66/test2:silverblue
       run: podman build -f Containerfile -t ghcr.io/emblem-66/test2:silverblue --target silverblue .
     
     - name: Build Serverblue Image
       shell: bash
-      #run: podman build -f Containerfile -t ghcr.io/emblem-66/test2:serverblue
       run: podman build -f Containerfile -t ghcr.io/emblem-66/test2:serverblue --target serverblue .
+
+    - name: Build Gamerblue Image
+      shell: bash
+      run: podman build -f Containerfile -t ghcr.io/emblem-66/test2:gamerblue --target gamerblue .
 
     - name: Push Base Image to ghcr.io
       shell: bash
@@ -69,3 +67,7 @@ jobs:
     - name: Push Serverblue Image to ghcr.io
       shell: bash
       run: podman push ghcr.io/emblem-66/test2:serverblue
+      
+    - name: Push Gamerblue Image to ghcr.io
+      shell: bash
+      run: podman push ghcr.io/emblem-66/test2:gamerblue
