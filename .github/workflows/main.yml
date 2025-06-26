@@ -1,0 +1,67 @@
+name: test2
+
+on:
+  schedule:
+    - cron: "0 7 * * *"
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - '**.md'
+      - '**.txt'
+      - '**.sh'
+      - '**.list'
+  workflow_dispatch:
+
+jobs: 
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    
+    steps:
+    
+    - name: Maximize build disk space (Only remove unwanted software)
+      uses: AdityaGarg8/remove-unwanted-software@v5
+      #with:
+      #    remove-android: 'true'
+      #    remove-dotnet: 'true'
+      #    remove-haskell: 'true'
+      #    remove-codeql: 'true'
+      #    remove-docker-images: 'true'
+      #    remove-large-packages: 'true'
+      #    remove-cached-tools: 'true'
+      #    remove-swapfile: 'true'
+    
+    - name: Checkout Push to Registry action
+      uses: actions/checkout@v4
+    
+    - name: Login to ghcr.io
+      shell: bash
+      run: podman login ghcr.io -u emblem-66 -p ${{ secrets.GITHUB_TOKEN }}
+    #- name: Build Image
+    #  shell: bash
+    #  run: podman build . -t ghcr.io/emblem-66/silverblue:latest
+    
+    - name: Build Silverblue Image
+      shell: bash
+      #run: podman build -f Containerfile -t ghcr.io/emblem-66/test2:silverblue
+      run: podman build -f Containerfile -t ghcr.io/emblem-66/test2:silverblue --target silverblue .
+    
+    - name: Build Serverblue Image
+      shell: bash
+      #run: podman build -f Containerfile -t ghcr.io/emblem-66/test2:serverblue
+      run: podman build -f Containerfile -t ghcr.io/emblem-66/test2:serverblue --target serverblue .
+
+    #- name: Push Image to ghcr.io
+    #  shell: bash
+    #  run: podman push ghcr.io/emblem-66/silverblue:latest
+    
+    - name: Push Silverblue Image to ghcr.io
+      shell: bash
+      run: podman push ghcr.io/emblem-66/test2:silverblue
+    
+    - name: Push Serverblue Image to ghcr.io
+      shell: bash
+      run: podman push ghcr.io/emblem-66/test2:serverblue
