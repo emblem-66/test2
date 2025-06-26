@@ -43,7 +43,11 @@ jobs:
     #- name: Build Image
     #  shell: bash
     #  run: podman build . -t ghcr.io/emblem-66/silverblue:latest
-    
+    - name: Build Base Image
+      shell: bash
+      #run: podman build -f Containerfile -t ghcr.io/emblem-66/test2:silverblue
+      run: podman build -f Containerfile -t ghcr.io/emblem-66/test2:base --target base .
+   
     - name: Build Silverblue Image
       shell: bash
       #run: podman build -f Containerfile -t ghcr.io/emblem-66/test2:silverblue
@@ -58,6 +62,10 @@ jobs:
     #  shell: bash
     #  run: podman push ghcr.io/emblem-66/silverblue:latest
     
+    - name: Push Base Image to ghcr.io
+      shell: bash
+      run: podman push ghcr.io/emblem-66/test2:base
+      
     - name: Push Silverblue Image to ghcr.io
       shell: bash
       run: podman push ghcr.io/emblem-66/test2:silverblue
