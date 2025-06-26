@@ -19,8 +19,11 @@ jobs:
     permissions:
       contents: read
       packages: write
-    
+    strategy:
+      matrix:
+        variant: [base, silverblue, serverblue, gamerblue]
     steps:
+
     - name: Checkout Push to Registry action
       uses: actions/checkout@v4
     
@@ -40,34 +43,39 @@ jobs:
           remove-cached-tools: 'true'
           remove-swapfile: 'true'
 
-    - name: Build Base Image
-      shell: bash
-      run: podman build -f Containerfile -t ghcr.io/emblem-66/test2:base --target base .
+    - name: Build Image
+    run: podman build -f Containerfile -t ghcr.io/emblem-66/test2:${{ matrix.variant }} --target ${{ matrix.variant }} .
+    - name: Push Image
+    - run: podman push ghcr.io/emblem-66/test2:${{ matrix.variant }}
+
+   # - name: Build Base Image
+   #   shell: bash
+   #   run: podman build -f Containerfile -t ghcr.io/emblem-66/test2:base --target base .
    
-    - name: Build Silverblue Image
-      shell: bash
-      run: podman build -f Containerfile -t ghcr.io/emblem-66/test2:silverblue --target silverblue .
+  #  - name: Build Silverblue Image
+  #    shell: bash
+  #    run: podman build -f Containerfile -t ghcr.io/emblem-66/test2:silverblue --target silverblue .
     
-    - name: Build Serverblue Image
-      shell: bash
-      run: podman build -f Containerfile -t ghcr.io/emblem-66/test2:serverblue --target serverblue .
+  #  - name: Build Serverblue Image
+   #   shell: bash
+   #   run: podman build -f Containerfile -t ghcr.io/emblem-66/test2:serverblue --target serverblue .
 
-    - name: Build Gamerblue Image
-      shell: bash
-      run: podman build -f Containerfile -t ghcr.io/emblem-66/test2:gamerblue --target gamerblue .
+  #  - name: Build Gamerblue Image
+    #  shell: bash
+   #   run: podman build -f Containerfile -t ghcr.io/emblem-66/test2:gamerblue --target gamerblue .
 
-    - name: Push Base Image to ghcr.io
-      shell: bash
-      run: podman push ghcr.io/emblem-66/test2:base
+  #  - name: Push Base Image to ghcr.io
+   #   shell: bash
+   #   run: podman push ghcr.io/emblem-66/test2:base
       
-    - name: Push Silverblue Image to ghcr.io
-      shell: bash
-      run: podman push ghcr.io/emblem-66/test2:silverblue
+   # - name: Push Silverblue Image to ghcr.io
+    #  shell: bash
+    #  run: podman push ghcr.io/emblem-66/test2:silverblue
     
-    - name: Push Serverblue Image to ghcr.io
-      shell: bash
-      run: podman push ghcr.io/emblem-66/test2:serverblue
+  #  - name: Push Serverblue Image to ghcr.io
+   #   shell: bash
+   #   run: podman push ghcr.io/emblem-66/test2:serverblue
       
-    - name: Push Gamerblue Image to ghcr.io
-      shell: bash
-      run: podman push ghcr.io/emblem-66/test2:gamerblue
+   # - name: Push Gamerblue Image to ghcr.io
+    #  shell: bash
+    #  run: podman push ghcr.io/emblem-66/test2:gamerblue
