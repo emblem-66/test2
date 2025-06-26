@@ -51,3 +51,16 @@ RUN uname -r \
  && rpm-ostree cleanup -m \
  && ostree container commit
 RUN bootc container lint
+
+# Gaming variant
+FROM base AS gamerblue
+RUN uname -r \
+ && dnf -y install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm \
+ && dnf -y install --nogpgcheck --repofrompath 'terra,https://repos.fyralabs.com/terra$releasever' terra-release \
+ && dnf -y install steam
+# Cleanup
+ && dnf clean all \
+ && rm -rf /tmp/* /var/* \
+ && rpm-ostree cleanup -m \
+ && ostree container commit
+RUN bootc container lint
