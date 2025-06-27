@@ -14,7 +14,7 @@ on:
   workflow_dispatch:
 
 jobs:   
-  build-extended:    
+  build:    
     runs-on: ubuntu-latest    
     permissions:
       contents: read
