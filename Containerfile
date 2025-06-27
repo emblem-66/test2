@@ -9,7 +9,8 @@ RUN curl -s https://raw.githubusercontent.com/Emblem-66/test2/refs/heads/main/Ba
 RUN bootc container lint
 
 # Workstation image
-FROM base AS silverblue
+FROM ghcr.io/emblem-66/test2:base AS silverblue
+#FROM base AS silverblue
 RUN curl -s https://raw.githubusercontent.com/Emblem-66/test2/refs/heads/main/Silverblue | bash \
  && dnf clean all \
  && rm -rf /tmp/* /var/* \
