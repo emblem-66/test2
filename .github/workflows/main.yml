@@ -25,7 +25,7 @@ jobs:
       packages: write
     strategy:
       matrix:
-        variant: [base, silverblue, serverblue]
+        variant: [silverblue, serverblue]
     steps:
     - name: Checkout Push to Registry action
       uses: actions/checkout@v4
@@ -43,10 +43,10 @@ jobs:
       #    remove-large-packages: 'true'
       #    remove-cached-tools: 'true'
       #    remove-swapfile: 'true'
-#    - name: Build Base Image
-#      run: podman build -f Containerfile -t ghcr.io/emblem-66/test2:base --target base .
-#    - name: Push Base Image
-#      run: podman push ghcr.io/emblem-66/test2:base
+    - name: Build Base Image
+      run: podman build -f Containerfile -t ghcr.io/emblem-66/test2:base --target base .
+    - name: Push Base Image
+      run: podman push ghcr.io/emblem-66/test2:base
     - name: Build Images
       run: podman build -f Containerfile -t ghcr.io/emblem-66/test2:${{ matrix.variant }} --target ${{ matrix.variant }} .
     - name: Push Images
