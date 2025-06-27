@@ -4,25 +4,27 @@ set -ouex pipefail
 
 rpm -qa | sort
 
-dnf group install -y \
-	base-graphical \
-	container-management \
-	core \
-	fonts \
-	gnome-desktop \
-	guest-desktop-agents \
-	hardware-support \
-	multimedia \
-	networkmanager-submodules \
-	printing \
-	virtualization \
-	workstation-product \
+#dnf group install -y \
+#	base-graphical \
+#	container-management \
+#	core \
+#	fonts \
+#	gnome-desktop \
+#	guest-desktop-agents \
+##	hardware-support \
+#	multimedia \
+#	networkmanager-submodules \
+#	printing \
+#	workstation-product \
+#	virtualization 
 
-systemctl set-default graphical.target
+#systemctl set-default graphical.target
 
 
-
-dnf -y install flatpak fedora-release-ostree-desktop adw-gtk3-theme # gnome-shell gdm nautilus 
+dnf -y install fedora-release-silverblue
+dnf -y install fedora-release-ostree-desktop
+dnf -y install flatpak
+dnf -y install adw-gtk3-theme # gnome-shell gdm nautilus 
 
 
 # Flatpak setup
