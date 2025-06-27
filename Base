@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -ouex pipefail
+set -ouexv pipefail
 
 ls -la /etc/yum.repos.d/
 
