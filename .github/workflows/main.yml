@@ -38,26 +38,26 @@ jobs:
     
     - name: Maximize build disk space (Only remove unwanted software)
       uses: AdityaGarg8/remove-unwanted-software@v5
-      with:
-          remove-android: 'true'
-          remove-dotnet: 'true'
-          remove-haskell: 'true'
-          remove-codeql: 'true'
-          remove-docker-images: 'true'
-          remove-large-packages: 'true'
-          remove-cached-tools: 'true'
-          remove-swapfile: 'true'
+      #with:
+      #    remove-android: 'true'
+      #    remove-dotnet: 'true'
+      #    remove-haskell: 'true'
+      #    remove-codeql: 'true'
+      #    remove-docker-images: 'true'
+      #    remove-large-packages: 'true'
+      #    remove-cached-tools: 'true'
+      #    remove-swapfile: 'true'
 
     - name: Build Base Image
       run: podman build -f Containerfile -t ghcr.io/emblem-66/test2:base --target base .
       
-    - name: Push Image
+    - name: Push Base Image
       run: podman push ghcr.io/emblem-66/test2:base
 
-    - name: Build Extended Images
+    - name: Build Images
       run: podman build -f Containerfile -t ghcr.io/emblem-66/test2:${{ matrix.variant }} --target ${{ matrix.variant }} .
       
-    - name: Push Image
+    - name: Push Images
       run: podman push ghcr.io/emblem-66/test2:${{ matrix.variant }}
 
 
