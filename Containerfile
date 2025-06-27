@@ -1,6 +1,6 @@
 #FROM quay.io/fedora/fedora-silverblue:latest AS base
 FROM quay.io/fedora/fedora-bootc:latest AS base
-RUN rpm -qa | sort # && dnf install -y tailscale
+RUN rpm -qa | sort  && dnf install -y tailscale \
 #RUN curl -s https://raw.githubusercontent.com/Emblem-66/test2/refs/heads/main/Base | bash \
 #RUN uname -r \
 # Repo cleanup
