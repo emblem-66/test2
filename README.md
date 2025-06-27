@@ -1,6 +1,9 @@
 # test2
 
-## Base
+## Images
+
+
+### Base
 
 Common changes for Silverblue and Serverblue
 
@@ -8,13 +11,13 @@ Common changes for Silverblue and Serverblue
 - tailscale
 - ssh
 
-## Silverblue
+### Silverblue
 
 - GNOME desktop
 - flatpak
   - flatpak autoupdate
   - flatpak app autoinstall
 
-## Serverblue
+### Serverblue
 
 - headless management
