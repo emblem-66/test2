@@ -14,45 +14,7 @@ on:
   workflow_dispatch:
 
 jobs: 
-  build-base:
-    
-    runs-on: ubuntu-latest
-    
-    permissions:
-      contents: read
-      packages: write
-    
-    strategy:
-      matrix:
-        variant: [base]
-    
-    steps:
-
-    - name: Checkout Push to Registry action
-      uses: actions/checkout@v4
-    
-    - name: Login to ghcr.io
-      shell: bash
-      run: podman login ghcr.io -u emblem-66 -p ${{ secrets.GITHUB_TOKEN }}
-    
-    - name: Maximize build disk space (Only remove unwanted software)
-      uses: AdityaGarg8/remove-unwanted-software@v5
-      with:
-          remove-android: 'true'
-          remove-dotnet: 'true'
-          remove-haskell: 'true'
-          remove-codeql: 'true'
-          remove-docker-images: 'true'
-          remove-large-packages: 'true'
-          remove-cached-tools: 'true'
-          remove-swapfile: 'true'
-
-    - name: Build Image
-      run: podman build -f Containerfile -t ghcr.io/emblem-66/test2:${{ matrix.variant }} --target ${{ matrix.variant }} .
-      
-    - name: Push Image
-      run: podman push ghcr.io/emblem-66/test2:${{ matrix.variant }}
-
+  
   build-extended:
     
     runs-on: ubuntu-latest
@@ -86,7 +48,13 @@ jobs:
           remove-cached-tools: 'true'
           remove-swapfile: 'true'
 
-    - name: Build Image
+    - name: Build Base Image
+      run: podman build -f Containerfile -t ghcr.io/emblem-66/test2:base --target base .
+      
+    - name: Push Image
+      run: podman push ghcr.io/emblem-66/test2:base
+
+    - name: Build Extended Images
       run: podman build -f Containerfile -t ghcr.io/emblem-66/test2:${{ matrix.variant }} --target ${{ matrix.variant }} .
       
     - name: Push Image
