@@ -10,7 +10,7 @@ RUN bootc container lint
 
 # Workstation image
 FROM base AS silverblue
-#RUN curl -s https://raw.githubusercontent.com/Emblem-66/test2/refs/heads/main/Silverblue | bash \
+RUN curl -s https://raw.githubusercontent.com/Emblem-66/test2/refs/heads/main/Silverblue | bash \
  && dnf clean all \
  && rm -rf /tmp/* /var/* \
  && rpm-ostree cleanup -m \
@@ -19,7 +19,7 @@ RUN bootc container lint
 
 # Server image
 FROM base AS serverblue
-#RUN curl -s https://raw.githubusercontent.com/Emblem-66/test2/refs/heads/main/Serverblue | bash \
+RUN curl -s https://raw.githubusercontent.com/Emblem-66/test2/refs/heads/main/Serverblue | bash \
  && dnf clean all \
  && rm -rf /tmp/* /var/* \
  && rpm-ostree cleanup -m \
