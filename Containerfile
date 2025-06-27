@@ -26,6 +26,8 @@ RUN bootc container lint
 
 # Workstation variant
 FROM base AS silverblue
+#RUN curl -s https://raw.githubusercontent.com/Emblem-66/test2/refs/heads/main/Silverblue | bash \
+
 RUN uname -r \
  && dnf -y install adw-gtk3-theme gnome-shell gdm nautilus flatpak \
 # Flatpak setup
@@ -73,6 +75,8 @@ RUN dnf install -y
 
 # Server variant
 FROM base AS serverblue
+#RUN curl -s https://raw.githubusercontent.com/Emblem-66/test2/refs/heads/main/Serverblue | bash \
+
 RUN uname -r \
  && dnf -y install smartmontools libvirt cockpit cockpit-machines cockpit-podman cockpit-files cockpit-navigator cockpit-selinux \
  && systemctl enable cockpit.socket || true \
