@@ -1,5 +1,7 @@
 # test2
 
+[![test2](https://github.com/emblem-66/test2/actions/workflows/main.yml/badge.svg)](https://github.com/emblem-66/test2/actions/workflows/main.yml)
+
 ## Images
 
 
