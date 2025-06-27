@@ -29,7 +29,7 @@ systemctl enable sshd.service || true
 
 # Common packages
 
-dnf -y install git curl
+dnf -y install git curl 
 
 # Repo cleanup
 #rm -rf /etc/yum.repos.d/_copr:copr.fedorainfracloud.org:phracek:PyCharm.repo
