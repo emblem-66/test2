@@ -1,6 +1,6 @@
 FROM quay.io/fedora/fedora-bootc:latest AS base
 
-RUN rpm -qa | sort && ls -l /etc/yum.repos.d/ && dnf install -y git tailscale && systemctl enable tailscaled.service && systemctl enable sshd.service \
+RUN uname -r \
 #RUN curl -s https://raw.githubusercontent.com/Emblem-66/test2/refs/heads/main/Base | bash \
 #RUN uname -r \
 # Repo cleanup
@@ -10,11 +10,11 @@ RUN rpm -qa | sort && ls -l /etc/yum.repos.d/ && dnf install -y git tailscale &&
 # && rm -rf /etc/yum.repos.d/rpmfusion-nonfree-nvidia-driver.repo \
 # && rm -rf /etc/yum.repos.d/rpmfusion-nonfree-steam.repo \
 # DNF auto updates
-# && sed -i 's/#AutomaticUpdatePolicy=none/AutomaticUpdatePolicy=stage/' /etc/rpm-ostreed.conf \
-# && systemctl enable rpm-ostreed-automatic.timer || true \
-# && dnf -y install tailscale \
-# && systemctl enable tailscaled.service || true \
-# && systemctl enable sshd.service || true \
+&& sed -i 's/#AutomaticUpdatePolicy=none/AutomaticUpdatePolicy=stage/' /etc/rpm-ostreed.conf \
+&& systemctl enable rpm-ostreed-automatic.timer || true \
+&& dnf -y install tailscale git \
+&& systemctl enable tailscaled.service || true \
+&& systemctl enable sshd.service || true \
 # Debloat
 # && dnf -y remove firefox* gnome-shell-extension* gnome-tour yelp* gnome-software-rpm-ostree virtualbox-guest-additions malcontent-control fedora-chromium-config* \
 # Cleanup
@@ -41,6 +41,36 @@ RUN uname -r \
  && ostree container commit
 RUN bootc container lint
 
+
+RUN dnf group install -y \
+	base-graphical \
+	container-management \
+	core \
+ fedora-release-ostree-desktop \
+	fonts \
+	gnome-desktop \
+	guest-desktop-agents \
+	hardware-support \
+	multimedia \
+	networkmanager-submodules \
+	printing \
+	virtualization \
+	workstation-product \
+	; dnf -y clean all
+
+RUN systemctl set-default graphical.target
+RUN dnf install -y 
+	; dnf -y clean all
+
+
+
+
+
+
+
+
+
+
 # Server variant
 FROM base AS serverblue
 RUN uname -r \
@@ -48,19 +78,6 @@ RUN uname -r \
  && systemctl enable cockpit.socket || true \
  && systemctl enable libvirtd || true \
  && systemctl enable httpd.service || true \
-# Cleanup
- && dnf clean all \
- && rm -rf /tmp/* /var/* \
- && rpm-ostree cleanup -m \
- && ostree container commit
-RUN bootc container lint
-
-# Gaming variant
-FROM silverblue AS gamerblue
-RUN uname -r \
- && dnf -y install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm \
-# && dnf -y install --nogpgcheck --repofrompath 'terra,https://repos.fyralabs.com/terra$releasever' terra-release \
- && dnf -y install steam
 # Cleanup
  && dnf clean all \
  && rm -rf /tmp/* /var/* \
