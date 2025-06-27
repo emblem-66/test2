@@ -1,6 +1,6 @@
 FROM quay.io/fedora/fedora-bootc:latest AS base
 
-RUN rpm -qa | sort && ls -l /etc/yum.repos.d/ && dnf install -y tailscale && systemctl enable tailscaled.service && systemctl enable sshd.service \
+RUN rpm -qa | sort && ls -l /etc/yum.repos.d/ && dnf install -y git tailscale && systemctl enable tailscaled.service && systemctl enable sshd.service \
 #RUN curl -s https://raw.githubusercontent.com/Emblem-66/test2/refs/heads/main/Base | bash \
 #RUN uname -r \
 # Repo cleanup
