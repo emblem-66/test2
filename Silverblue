@@ -35,4 +35,4 @@ dnf -y install adw-gtk3-theme # gnome-shell gdm nautilus
 #git clone https://github.com/somepaulo/MoreWaita.git /usr/share/icons/MoreWaita/
 
 
-rpm -qa | sort
+rpm -qa | sort | grep gnome
