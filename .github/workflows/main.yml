@@ -17,14 +17,14 @@ on:
 #--------------------------------------------
 
 jobs:   
-  build:    
+  build-and-push:
     runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
-    strategy:
-      matrix:
-        variant: [silverblue, serverblue]
+    #strategy:
+    #  matrix:
+    #    variant: [silverblue, serverblue]
     steps:
     - name: Checkout Push to Registry action
       uses: actions/checkout@v4
@@ -52,8 +52,12 @@ jobs:
     #  run: podman push ghcr.io/emblem-66/test2:${{ matrix.variant }}
     - name: Build and Push Base Image
       run: podman build -f Containerfile -t ghcr.io/emblem-66/test2:base --target base . && podman push ghcr.io/emblem-66/test2:base
-    - name: Build and Push Images
-      run: podman build -f Containerfile -t ghcr.io/emblem-66/test2:${{ matrix.variant }} --target ${{ matrix.variant }} . && podman push ghcr.io/emblem-66/test2:${{ matrix.variant }}
+    - name: Build and Push Silverblue Image
+      run: podman build -f Containerfile -t ghcr.io/emblem-66/test2:silverblue --target silverblue . && podman push ghcr.io/emblem-66/test2:silverblue
+    - name: Build and Push Serverblue Image
+      run: podman build -f Containerfile -t ghcr.io/emblem-66/test2:serverblue --target serverblue . && podman push ghcr.io/emblem-66/test2:serverblue
+    #- name: Build and Push Images
+    #  run: podman build -f Containerfile -t ghcr.io/emblem-66/test2:${{ matrix.variant }} --target ${{ matrix.variant }} . && podman push ghcr.io/emblem-66/test2:${{ matrix.variant }}
 
 
 #--------------------------------------------
