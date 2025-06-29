@@ -2,10 +2,10 @@
 
 set -ouex pipefail
 
-dnf group install -y base-graphical
+#dnf group install -y base-graphical
 #dnf group install -y container-management
-dnf group install -y core
-dnf group install -y fonts
+#dnf group install -y core
+#dnf group install -y fonts
 dnf group install -y gnome-desktop
 dnf group install -y guest-desktop-agents
 dnf group install -y hardware-support
@@ -13,7 +13,7 @@ dnf group install -y multimedia
 dnf group install -y networkmanager-submodules
 dnf group install -y printing
 dnf group install -y workstation-product
-dnf group install -y virtualization 
+#dnf group install -y virtualization 
 
 dnf -y install fedora-release-silverblue
 dnf -y install fedora-release-ostree-desktop
