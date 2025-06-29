@@ -1,8 +1,4 @@
-
-
 FROM quay.io/fedora/fedora-bootc:latest AS base
-RUN rpm -qa | sort > base_rpm.txt
-
 
 # Base image
 RUN curl -s https://raw.githubusercontent.com/Emblem-66/test2/refs/heads/main/Base | bash \
@@ -11,10 +7,6 @@ RUN curl -s https://raw.githubusercontent.com/Emblem-66/test2/refs/heads/main/Ba
  && rpm-ostree cleanup -m \
  && ostree container commit
 RUN bootc container lint
-
-FROM quay.io/fedora-ostree-desktops/base-atomic:42
-RUN rpm -qa | sort > fod_rpm.txt
-RUN diff fod_rpm.txt base_rpm.txt
 
 # Workstation image
 #FROM ghcr.io/emblem-66/test2:base AS silverblue
