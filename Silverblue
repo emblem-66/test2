@@ -3,7 +3,7 @@
 set -ouex pipefail
 
 dnf group install -y base-graphical
-dnf group install -y container-management
+#dnf group install -y container-management
 dnf group install -y core
 dnf group install -y fonts
 dnf group install -y gnome-desktop
