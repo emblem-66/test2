@@ -1,6 +1,6 @@
 FROM quay.io/fedora/fedora-bootc:latest AS base
 
-RUN <<EOF
+RUN <<EOF uname -r
 # System auto updates
 sed -i 's/#AutomaticUpdatePolicy=none/AutomaticUpdatePolicy=stage/' /etc/rpm-ostreed.conf 
 systemctl enable rpm-ostreed-automatic.timer || true 
