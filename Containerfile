@@ -1,4 +1,4 @@
-FROM quay.io/fedora-ostree-desktops/base-atomic:42 AS fod
+FROM quay.io/fedora-ostree-desktops/base-atomic:42
 RUN rpm -qa | sort > fod_rpm.txt
 
 FROM quay.io/fedora/fedora-bootc:latest AS base
