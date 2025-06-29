@@ -1,12 +1,21 @@
 FROM quay.io/fedora/fedora-bootc:latest AS base
 
-# Base image
-RUN curl -s https://raw.githubusercontent.com/Emblem-66/test2/refs/heads/main/Base | bash \
- && dnf clean all \
- && rm -rf /tmp/* /var/* \
- && rpm-ostree cleanup -m \
- && ostree container commit
+RUN <<EOF
+curl -s https://raw.githubusercontent.com/Emblem-66/test2/refs/heads/main/Base | bash
+dnf clean all
+rm -rf /tmp/* /var/*
+rpm-ostree cleanup -m
+ostree container commit
+EOF
 RUN bootc container lint
+
+# Base image
+#RUN curl -s https://raw.githubusercontent.com/Emblem-66/test2/refs/heads/main/Base | bash \
+# && dnf clean all \
+# && rm -rf /tmp/* /var/* \
+# && rpm-ostree cleanup -m \
+# && ostree container commit
+#RUN bootc container lint
 
 # Workstation image
 #FROM ghcr.io/emblem-66/test2:base AS silverblue
