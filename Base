@@ -1,17 +1,5 @@
 #!/bin/bash
-
 set -ouexv pipefail
-
-ls -la /etc/yum.repos.d/
-
-rpm -qa | sort
-
-# Repo cleanup
-#rm -rf /etc/yum.repos.d/_copr:copr.fedorainfracloud.org:phracek:PyCharm.repo 
-#rm -rf /etc/yum.repos.d/fedora-cisco-openh264.repo 
-#rm -rf /etc/yum.repos.d/google-chrome.repo 
-#rm -rf /etc/yum.repos.d/rpmfusion-nonfree-nvidia-driver.repo 
-#rm -rf /etc/yum.repos.d/rpmfusion-nonfree-steam.repo 
 
 # System auto updates
 sed -i 's/#AutomaticUpdatePolicy=none/AutomaticUpdatePolicy=stage/' /etc/rpm-ostreed.conf 
@@ -24,12 +12,12 @@ systemctl enable tailscaled.service || true
 # SSH
 systemctl enable sshd.service || true 
 
-# Debloat
-#dnf -y remove firefox* gnome-shell-extension* gnome-tour yelp* gnome-software-rpm-ostree virtualbox-guest-additions malcontent-control fedora-chromium-config* 
-
 # Common packages
+dnf -y install git
 
-dnf -y install git curl 
+# Toolbox to Distrobox
+dnf -y install distrobox
+dnf -y remove toolbox
 
 # Repo cleanup
 #rm -rf /etc/yum.repos.d/_copr:copr.fedorainfracloud.org:phracek:PyCharm.repo
@@ -45,5 +33,3 @@ dnf -y install git curl
 #systemctl enable sshd.service || true
 # Debloat
 #dnf -y remove firefox* gnome-shell-extension* gnome-tour yelp* gnome-software-rpm-ostree virtualbox-guest-additions malcontent-control fedora-chromium-config*
-
-rpm -qa | sort
