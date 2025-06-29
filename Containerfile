@@ -1,7 +1,19 @@
 FROM quay.io/fedora/fedora-bootc:latest AS base
 
 RUN <<EOF
-curl -s https://raw.githubusercontent.com/Emblem-66/test2/refs/heads/main/Base | bash
+# System auto updates
+sed -i 's/#AutomaticUpdatePolicy=none/AutomaticUpdatePolicy=stage/' /etc/rpm-ostreed.conf 
+systemctl enable rpm-ostreed-automatic.timer || true 
+# Tailscale
+dnf -y install tailscale 
+systemctl enable tailscaled.service || true 
+# SSH
+systemctl enable sshd.service || true 
+# Common packages
+dnf -y install git
+# Toolbox to Distrobox
+dnf -y install distrobox
+dnf -y remove toolbox
 dnf clean all
 rm -rf /tmp/* /var/*
 rpm-ostree cleanup -m
