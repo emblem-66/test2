@@ -13,11 +13,11 @@ systemctl enable tailscaled.service || true
 systemctl enable sshd.service || true 
 
 # Common packages
-dnf -y install git
+#dnf -y install git
 
 # Toolbox to Distrobox
-dnf -y install distrobox
-dnf -y remove toolbox
+#dnf -y install distrobox
+#dnf -y remove toolbox
 
 # Repo cleanup
 #rm -rf /etc/yum.repos.d/_copr:copr.fedorainfracloud.org:phracek:PyCharm.repo
