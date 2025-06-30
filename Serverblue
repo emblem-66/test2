@@ -7,10 +7,10 @@ rpm -qa | sort
 #smartmontools libvirt 
 
 
-dnf -y install cockpit cockpit-machines cockpit-podman cockpit-files cockpit-navigator cockpit-selinux
+dnf -y install cockpit* #cockpit-machines cockpit-podman cockpit-files cockpit-navigator cockpit-selinux
 
 systemctl enable cockpit.socket || true
-systemctl enable libvirtd || true
-systemctl enable httpd.service || true
+#systemctl enable libvirtd || true
+#systemctl enable httpd.service || true
 
 rpm -qa | sort
