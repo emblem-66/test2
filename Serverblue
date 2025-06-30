@@ -6,7 +6,7 @@ rpm -qa | sort
 
 #smartmontools libvirt 
 
-
+dnf -y install podman podman-compose
 dnf -y install cockpit* #cockpit-machines cockpit-podman cockpit-files cockpit-navigator cockpit-selinux
 
 systemctl enable cockpit.socket || true
