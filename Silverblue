@@ -15,7 +15,7 @@ set -ouex pipefail
 #dnf group install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  workstation-product
 #dnf group install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  virtualization 
 
-dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  fedora-release-silverblue
+#dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  fedora-release-silverblue
 dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  fedora-release-ostree-desktop
 dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  flatpak
 dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  gnome-shell
@@ -30,8 +30,8 @@ echo -e "[Unit]\nDescription=Update Flatpaks\n[Service]\nType=oneshot\nExecStart
 echo -e "[Unit]\nDescription=Update Flatpaks\n[Timer]\nOnCalendar=*:0/4\nPersistent=true\n[Install]\nWantedBy=timers.target\n" | tee /etc/systemd/system/flatpak-update.timer
 systemctl enable flatpak-update.timer || true
 # Morewaita Icons
-#git clone https://github.com/somepaulo/MoreWaita.git /usr/share/icons/MoreWaita/
+git clone https://github.com/somepaulo/MoreWaita.git /usr/share/icons/MoreWaita/
 # Gsettings
-# gsettings set org.gnome.desktop.wm.preferences resize-with-right-button "true"
+gsettings set org.gnome.desktop.wm.preferences resize-with-right-button "true"
 
 rpm -qa | sort
