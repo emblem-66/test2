@@ -24,7 +24,7 @@ dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable 
 
 # Toolbox to Distrobox
 dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable distrobox
-dnf remove =y toolbox
+#dnf remove -y toolbox
 
 # Repo cleanup
 #rm -rf /etc/yum.repos.d/_copr:copr.fedorainfracloud.org:phracek:PyCharm.repo
