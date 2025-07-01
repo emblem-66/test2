@@ -1,6 +1,8 @@
 #!/bin/bash
 set -ouexv pipefail
 
+ls -la /etc/yum.repos.d/
+
 # System auto updates
 sed -i 's/#AutomaticUpdatePolicy=none/AutomaticUpdatePolicy=stage/' /etc/rpm-ostreed.conf 
 systemctl enable rpm-ostreed-automatic.timer || true 
@@ -11,6 +13,10 @@ systemctl enable tailscaled.service || true
 
 # SSH
 systemctl enable sshd.service || true 
+
+# Cockpit - basic only
+dnf -y install cockpit #cockpit-machines cockpit-podman cockpit-files cockpit-navigator cockpit-selinux
+systemctl enable cockpit.socket || true
 
 # Common packages
 #dnf -y install git
