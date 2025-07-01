@@ -7,6 +7,34 @@ rm -rf /etc/yum.repos.d/fedora-cisco-openh264.repo
 sed -i 's/#AutomaticUpdatePolicy=none/AutomaticUpdatePolicy=stage/' /etc/rpm-ostreed.conf 
 systemctl enable rpm-ostreed-automatic.timer || true 
 
+cat /etc/rpm-ostreed.conf 
+cat /etc/systemd/system/timers.target.wants/rpm-ostreed-automatic.timer
+cat /usr/lib/systemd/system/rpm-ostreed-automatic.timer'
+
+# cat /usr/lib/systemd/system/bootc-fetch-apply-updates.service
+#[Unit]
+#Description=Apply bootc updates
+#Documentation=man:bootc(8)
+#ConditionPathExists=/run/ostree-booted
+#[Service]
+#Type=oneshot
+#ExecStart=/usr/bin/bootc update --apply --quiet
+
+# cat /usr/lib/systemd/system/bootc-fetch-apply-updates.timer
+#[Unit]
+#Description=Apply bootc updates
+#Documentation=man:bootc(8)
+#ConditionPathExists=/run/ostree-booted
+
+#[Timer]
+# Disable the automatic reboot on the update service for bootc
+#OnBootSec=1h
+# This time is relatively arbitrary and obviously expected to be overridden/changed
+#OnUnitInactiveSec=8h
+# When deploying a large number of systems, it may be beneficial to increase this value to help with load on the registry.
+#RandomizedDelaySec=2h
+#[Install]
+#WantedBy=timers.target
 
 # /*
 # Configure Updates
