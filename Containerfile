@@ -4,7 +4,7 @@ FROM quay.io/fedora/fedora-bootc:latest AS base
 # Base image
 RUN curl -s https://raw.githubusercontent.com/Emblem-66/test2/refs/heads/main/Base | bash \
  && dnf clean all \
- && rm -rf /tmp/* /var/* \
+ && rm -rf /tmp/* /var/* /usr/etc \
  && rpm-ostree cleanup -m \
  && ostree container commit
 RUN bootc container lint
@@ -14,7 +14,7 @@ RUN bootc container lint
 FROM base AS silverblue
 RUN curl -s https://raw.githubusercontent.com/Emblem-66/test2/refs/heads/main/Silverblue | bash \
  && dnf clean all \
- && rm -rf /tmp/* /var/* \
+ && rm -rf /tmp/* /var/* /usr/etc \
  && rpm-ostree cleanup -m \
  && ostree container commit
 RUN bootc container lint
@@ -24,7 +24,7 @@ RUN bootc container lint
 FROM base AS serverblue
 RUN curl -s https://raw.githubusercontent.com/Emblem-66/test2/refs/heads/main/Serverblue | bash \
  && dnf clean all \
- && rm -rf /tmp/* /var/* \
+ && rm -rf /tmp/* /var/* /usr/etc \
  && rpm-ostree cleanup -m \
  && ostree container commit
 RUN bootc container lint
