@@ -9,14 +9,15 @@ sed -i 's/#AutomaticUpdatePolicy=none/AutomaticUpdatePolicy=stage/' /etc/rpm-ost
 systemctl enable rpm-ostreed-automatic.timer || true 
 
 # Tailscale
-dnf -y install tailscale 
+
+dnf -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable install tailscale 
 systemctl enable tailscaled.service || true 
 
 # SSH
 systemctl enable sshd.service || true 
 
 # Cockpit - basic only
-dnf -y install cockpit #cockpit-machines cockpit-podman cockpit-files cockpit-navigator cockpit-selinux
+dnf --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable -y install cockpit #cockpit-machines cockpit-podman cockpit-files cockpit-navigator cockpit-selinux
 systemctl enable cockpit.socket || true
 
 # Common packages
