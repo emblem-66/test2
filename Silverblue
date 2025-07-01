@@ -36,3 +36,8 @@ git clone https://github.com/somepaulo/MoreWaita.git /usr/share/icons/MoreWaita/
 gsettings set org.gnome.desktop.wm.preferences resize-with-right-button "true"
 
 rpm -qa | sort
+
+rpm -qa | sort | grep kernel
+rpm -qa | sort | grep gnome
+rpm -qa | sort | grep mesa
+rpm -qa | sort | xdg-user-dirs
