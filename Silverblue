@@ -2,18 +2,18 @@
 
 set -ouex pipefail
 
-#dnf group install --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable -y base-graphical
-#dnf group install --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable -y container-management
-#dnf group install --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable -y core
-#dnf group install --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable -y fonts
-#dnf group install --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable -y gnome-desktop
-#dnf group install --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable -y guest-desktop-agents
-#dnf group install --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable -y hardware-support
-#dnf group install --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable -y multimedia
-#dnf group install --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable -y networkmanager-submodules
-#dnf group install --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable -y printing
-#dnf group install --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable -y workstation-product
-#dnf group install --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable -y virtualization 
+dnf group install --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable -y base-graphical
+dnf group install --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable -y container-management
+dnf group install --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable -y core
+dnf group install --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable -y fonts
+dnf group install --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable -y gnome-desktop
+dnf group install --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable -y guest-desktop-agents
+dnf group install --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable -y hardware-support
+dnf group install --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable -y multimedia
+dnf group install --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable -y networkmanager-submodules
+dnf group install --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable -y printing
+dnf group install --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable -y workstation-product
+dnf group install --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable -y virtualization 
 
 #dnf install --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable -y fedora-release-silverblue
 #dnf install --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable -y fedora-release-ostree-desktop
@@ -26,8 +26,8 @@ set -ouex pipefail
 #systemctl set-default graphical.target
 
 # Flatpak setup
-#echo -e "[Unit]\nDescription=Update Flatpaks\n[Service]\nType=oneshot\nExecStart=/usr/bin/flatpak remote-modify --disable fedora ; /usr/bin/flatpak remote-modify --enable flathub ; /usr/bin/flatpak uninstall --unused -y --noninteractive ; /usr/bin/bash -c 'curl -sSL https://raw.githubusercontent.com/emblem-66/Silverblue/refs/heads/main/flatpak-apps.list | xargs -r flatpak install --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable -y --noninteractive' ; /usr/bin/bash -c 'cat /var/home/$(whoami)/.flatpak-apps.list | xargs -r flatpak install --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable -y --noninteractive' ; /usr/bin/flatpak update -y --noninteractive\n[Install]\nWantedBy=default.target\n" | tee /etc/systemd/system/flatpak-update.service
-#echo -e "[Unit]\nDescription=Update Flatpaks\n[Timer]\nOnCalendar=*:0/4\nPersistent=true\n[Install]\nWantedBy=timers.target\n" | tee /etc/systemd/system/flatpak-update.timer
+echo -e "[Unit]\nDescription=Update Flatpaks\n[Service]\nType=oneshot\nExecStart=/usr/bin/flatpak remote-modify --disable fedora ; /usr/bin/flatpak remote-modify --enable flathub ; /usr/bin/flatpak uninstall --unused -y --noninteractive ; /usr/bin/bash -c 'curl -sSL https://raw.githubusercontent.com/emblem-66/Silverblue/refs/heads/main/flatpak-apps.list | xargs -r flatpak install --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable -y --noninteractive' ; /usr/bin/bash -c 'cat /var/home/$(whoami)/.flatpak-apps.list | xargs -r flatpak install --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable -y --noninteractive' ; /usr/bin/flatpak update -y --noninteractive\n[Install]\nWantedBy=default.target\n" | tee /etc/systemd/system/flatpak-update.service
+echo -e "[Unit]\nDescription=Update Flatpaks\n[Timer]\nOnCalendar=*:0/4\nPersistent=true\n[Install]\nWantedBy=timers.target\n" | tee /etc/systemd/system/flatpak-update.timer
 systemctl enable flatpak-update.timer || true
 # Morewaita Icons
 #git clone https://github.com/somepaulo/MoreWaita.git /usr/share/icons/MoreWaita/
