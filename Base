@@ -17,14 +17,14 @@ systemctl enable tailscaled.service || true
 systemctl enable sshd.service || true 
 
 # Cockpit - basic only
-dnf5 install --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable -y cockpit #cockpit-machines cockpit-podman cockpit-files cockpit-navigator cockpit-selinux
+dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable -y cockpit #cockpit-machines cockpit-podman cockpit-files cockpit-navigator cockpit-selinux
 systemctl enable cockpit.socket || true
 
 # Common packages
 #dnf -y install git
 
 # Toolbox to Distrobox
-#dnf -y install distrobox
+#dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  distrobox
 #dnf -y remove toolbox
 
 # Repo cleanup
