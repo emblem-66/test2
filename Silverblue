@@ -2,26 +2,26 @@
 
 set -ouex pipefail
 
-dnf group install --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable -y base-graphical
-dnf group install --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable -y container-management
-dnf group install --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable -y core
-dnf group install --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable -y fonts
-dnf group install --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable -y gnome-desktop
-dnf group install --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable -y guest-desktop-agents
-dnf group install --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable -y hardware-support
-dnf group install --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable -y multimedia
-dnf group install --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable -y networkmanager-submodules
-dnf group install --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable -y printing
-dnf group install --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable -y workstation-product
-dnf group install --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable -y virtualization 
+dnf group install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  base-graphical
+dnf group install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  container-management
+dnf group install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  core
+dnf group install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  fonts
+dnf group install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  gnome-desktop
+dnf group install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  guest-desktop-agents
+dnf group install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  hardware-support
+dnf group install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  multimedia
+dnf group install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  networkmanager-submodules
+dnf group install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  printing
+dnf group install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  workstation-product
+dnf group install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  virtualization 
 
-#dnf install --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable -y fedora-release-silverblue
-#dnf install --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable -y fedora-release-ostree-desktop
-#dnf install --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable -y flatpak
-#dnf install --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable -y gnome-shell
-#dnf install --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable -y gdm
-#dnf install --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable -y nautilus 
-#dnf install --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable -y adw-gtk3-theme
+#dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  fedora-release-silverblue
+#dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  fedora-release-ostree-desktop
+#dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  flatpak
+#dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  gnome-shell
+#dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  gdm
+#dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  nautilus 
+#dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  adw-gtk3-theme
 
 #systemctl set-default graphical.target
 
