@@ -2,14 +2,12 @@
 set -ouexv pipefail
 
 rm -rf /etc/yum.repos.d/fedora-cisco-openh264.repo
-ls -la /etc/yum.repos.d/
 
 # System auto updates
 sed -i 's/#AutomaticUpdatePolicy=none/AutomaticUpdatePolicy=stage/' /etc/rpm-ostreed.conf 
 systemctl enable rpm-ostreed-automatic.timer || true 
 
 # Tailscale
-
 dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable tailscale 
 systemctl enable tailscaled.service || true 
 
@@ -17,15 +15,16 @@ systemctl enable tailscaled.service || true
 systemctl enable sshd.service || true 
 
 # Cockpit - basic only
-dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable -y cockpit #cockpit-machines cockpit-podman cockpit-files cockpit-navigator cockpit-selinux
+dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable cockpit #cockpit-machines cockpit-podman cockpit-files cockpit-navigator cockpit-selinux
 systemctl enable cockpit.socket || true
 
 # Common packages
-#dnf -y install git
+dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable git
+dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable rsync
 
 # Toolbox to Distrobox
-#dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  distrobox
-#dnf -y remove toolbox
+dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable distrobox
+dnf remove =y toolbox
 
 # Repo cleanup
 #rm -rf /etc/yum.repos.d/_copr:copr.fedorainfracloud.org:phracek:PyCharm.repo
