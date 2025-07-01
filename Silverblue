@@ -3,17 +3,17 @@
 set -ouex pipefail
 
 dnf group install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  base-graphical
-dnf group install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  container-management
-dnf group install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  core
-dnf group install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  fonts
+#dnf group install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  container-management
+#dnf group install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  core
+#dnf group install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  fonts
 dnf group install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  gnome-desktop
-dnf group install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  guest-desktop-agents
-dnf group install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  hardware-support
-dnf group install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  multimedia
-dnf group install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  networkmanager-submodules
-dnf group install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  printing
+#dnf group install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  guest-desktop-agents
+#dnf group install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  hardware-support
+#dnf group install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  multimedia
+#dnf group install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  networkmanager-submodules
+#dnf group install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  printing
 dnf group install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  workstation-product
-dnf group install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  virtualization 
+#dnf group install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  virtualization 
 
 #dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  fedora-release-silverblue
 #dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  fedora-release-ostree-desktop
