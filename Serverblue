@@ -4,8 +4,8 @@ set -ouex pipefail
 
 dnf -y install NetworkManager
 
-dnf -y install podman podman-compose
-dnf -y install cockpit* #cockpit-machines cockpit-podman cockpit-files cockpit-navigator cockpit-selinux
+dnf --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable -y install podman podman-compose
+dnf --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable -y install cockpit* #cockpit-machines cockpit-podman cockpit-files cockpit-navigator cockpit-selinux
 
 systemctl enable cockpit.socket || true
 #systemctl enable libvirtd || true
