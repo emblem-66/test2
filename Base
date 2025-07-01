@@ -18,6 +18,17 @@ systemctl enable rpm-ostreed-automatic.timer || true
 cat /usr/lib/systemd/system/bootc-fetch-apply-updates.service
 cat /usr/lib/systemd/system/bootc-fetch-apply-updates.timer
 
+
+# Disable the automatic reboot on the update service for bootc
+#mkdir -p /etc/systemd/system/bootc-fetch-apply-updates.service.d
+#cat << EOF > /etc/systemd/system/bootc-fetch-apply-updates.service.d/10-no-apply.conf
+#[Service]
+#ExecStart=
+#ExecStart=/usr/bin/bootc update --quiet
+#EOF
+
+
+
 # Tailscale
 dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable tailscale 
 systemctl enable tailscaled.service || true 
