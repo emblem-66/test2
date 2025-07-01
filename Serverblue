@@ -2,8 +2,6 @@
 
 set -ouex pipefail
 
-rpm -qa | sort
-
 dnf -y install NetworkManager
 
 dnf -y install podman podman-compose
