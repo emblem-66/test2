@@ -2,28 +2,28 @@
 
 set -ouex pipefail
 
-dnf group install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  base-graphical
+#dnf group install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  base-graphical
 #dnf group install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  container-management
 #dnf group install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  core
 #dnf group install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  fonts
-dnf group install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  gnome-desktop
+#dnf group install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  gnome-desktop
 #dnf group install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  guest-desktop-agents
 #dnf group install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  hardware-support
 #dnf group install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  multimedia
 #dnf group install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  networkmanager-submodules
 #dnf group install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  printing
-dnf group install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  workstation-product
+#dnf group install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  workstation-product
 #dnf group install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  virtualization 
 
-#dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  fedora-release-silverblue
-#dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  fedora-release-ostree-desktop
-#dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  flatpak
-#dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  gnome-shell
-#dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  gdm
-#dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  nautilus 
-#dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  adw-gtk3-theme
+dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  fedora-release-silverblue
+dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  fedora-release-ostree-desktop
+dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  flatpak
+dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  gnome-shell
+dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  gdm
+dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  nautilus 
+dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  adw-gtk3-theme
 
-#systemctl set-default graphical.target
+systemctl set-default graphical.target
 
 # Flatpak setup
 echo -e "[Unit]\nDescription=Update Flatpaks\n[Service]\nType=oneshot\nExecStart=/usr/bin/flatpak remote-modify --disable fedora ; /usr/bin/flatpak remote-modify --enable flathub ; /usr/bin/flatpak uninstall --unused -y --noninteractive ; /usr/bin/bash -c 'curl -sSL https://raw.githubusercontent.com/emblem-66/Silverblue/refs/heads/main/flatpak-apps.list | xargs -r flatpak install --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable -y --noninteractive' ; /usr/bin/bash -c 'cat /var/home/$(whoami)/.flatpak-apps.list | xargs -r flatpak install --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable -y --noninteractive' ; /usr/bin/flatpak update -y --noninteractive\n[Install]\nWantedBy=default.target\n" | tee /etc/systemd/system/flatpak-update.service
