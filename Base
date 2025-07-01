@@ -9,7 +9,7 @@ systemctl enable rpm-ostreed-automatic.timer || true
 
 cat /etc/rpm-ostreed.conf 
 cat /etc/systemd/system/timers.target.wants/rpm-ostreed-automatic.timer
-cat /usr/lib/systemd/system/rpm-ostreed-automatic.timer'
+cat /usr/lib/systemd/system/rpm-ostreed-automatic.timer
 
 # cat /usr/lib/systemd/system/bootc-fetch-apply-updates.service
 #[Unit]
