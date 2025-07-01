@@ -40,4 +40,4 @@ rpm -qa | sort
 rpm -qa | sort | grep kernel
 rpm -qa | sort | grep gnome
 rpm -qa | sort | grep mesa
-rpm -qa | sort | xdg-user-dirs
+rpm -qa | sort | grep xdg-user-dirs
