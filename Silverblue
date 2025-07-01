@@ -15,13 +15,14 @@ set -ouex pipefail
 #dnf group install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  workstation-product
 #dnf group install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  virtualization 
 
-#dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  fedora-release-silverblue
-dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  fedora-release-ostree-desktop
-dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  flatpak
-dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  gnome-shell
-dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  gdm
-dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  nautilus 
-dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  adw-gtk3-theme
+#dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable fedora-release-silverblue
+dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable fedora-release-ostree-desktop
+dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable flatpak
+dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable gnome-shell
+dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable gdm
+dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable nautilus
+dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable ptyxis
+dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable adw-gtk3-theme
 
 systemctl set-default graphical.target
 
