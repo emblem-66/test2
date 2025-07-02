@@ -1,5 +1,6 @@
 #!/bin/bash
-set -e
+set -ouex pipefail
+
 TARGET="$1"
 IMAGE="ghcr.io/emblem-66/test2:$TARGET"
 
