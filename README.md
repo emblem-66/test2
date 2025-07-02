@@ -4,7 +4,8 @@
 
 ## Images
 
-### Prerequisites
+*Prerequisites*
+
 - installation of Fedora Atomic (Silverblue) with user/first run set up
 
 ## Base
