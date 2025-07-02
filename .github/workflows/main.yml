@@ -33,15 +33,15 @@ jobs:
       run: podman login ghcr.io -u emblem-66 -p ${{ secrets.GITHUB_TOKEN }}
     - name: Maximize build disk space (Only remove unwanted software)
       uses: AdityaGarg8/remove-unwanted-software@v5
-      #with:
-      #    remove-android: 'true'
-      #    remove-dotnet: 'true'
-      #    remove-haskell: 'true'
-      #    remove-codeql: 'true'
-      #    remove-docker-images: 'true'
-      #    remove-large-packages: 'true'
-      #    remove-cached-tools: 'true'
-      #    remove-swapfile: 'true'
+      with:
+          remove-android: 'true'
+          remove-dotnet: 'true'
+          remove-haskell: 'true'
+          remove-codeql: 'true'
+          remove-docker-images: 'true'
+          remove-large-packages: 'true'
+          remove-cached-tools: 'true'
+          remove-swapfile: 'true'
     #- name: Build Base Image
     #  run: podman build -f Containerfile -t ghcr.io/emblem-66/test2:base --target base .
     #- name: Push Base Image
