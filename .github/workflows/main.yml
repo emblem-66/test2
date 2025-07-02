@@ -63,20 +63,52 @@ jobs:
     #- name: Build and Push Images
     #  run: podman build -f Containerfile -t ghcr.io/emblem-66/test2:${{ matrix.variant }} --target ${{ matrix.variant }} . && podman push ghcr.io/emblem-66/test2:${{ matrix.variant }}
 
+    #- name: Build and Push silverblue
+    #  run: ./build-and-push.sh silverblue
+    #- name: Build and Push fedora-ostree-desktops
+    #  run: ./build-and-push.sh fedora-ostree-desktops
+    #- name: Build and Push base
+    #  run: ./build-and-push.sh base
+    #- name: Build and Push desktop
+    #  run: ./build-and-push.sh desktop
+    #- name: Build and Push server
+    #  run: ./build-and-push.sh server
+
     - name: Build and Push silverblue
-      run: ./build-and-push.sh silverblue
+      run: |
+        REPO=test2
+        TAG=silverblue
+        podman build -f Containerfile -t ghcr.io/emblem-66/$REPO:$TAG --target $TAG .
+        podman push ghcr.io/emblem-66/$REPO:$TAG
 
     - name: Build and Push fedora-ostree-desktops
-      run: ./build-and-push.sh fedora-ostree-desktops
+      run: |
+        REPO=test2
+        TAG=fedora-ostree-desktops
+        podman build -f Containerfile -t ghcr.io/emblem-66/$REPO:$TAG --target $TAG .
+        podman push ghcr.io/emblem-66/$REPO:$TAG
 
     - name: Build and Push base
-      run: ./build-and-push.sh base
+      run: |
+        REPO=test2
+        TAG=base
+        podman build -f Containerfile -t ghcr.io/emblem-66/$REPO:$TAG --target $TAG .
+        podman push ghcr.io/emblem-66/$REPO:$TAG
 
     - name: Build and Push desktop
-      run: ./build-and-push.sh desktop
+      run: |
+        REPO=test2
+        TAG=desktop
+        podman build -f Containerfile -t ghcr.io/emblem-66/$REPO:$TAG --target $TAG .
+        podman push ghcr.io/emblem-66/$REPO:$TAG
 
     - name: Build and Push server
-      run: ./build-and-push.sh server
+      run: |
+        REPO=test2
+        TAG=server
+        podman build -f Containerfile -t ghcr.io/emblem-66/$REPO:$TAG --target $TAG .
+        podman push ghcr.io/emblem-66/$REPO:$TAG
+
 
 
 #--------------------------------------------
