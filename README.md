@@ -4,10 +4,10 @@
 
 ## Images
 
-Prerequisites
+### Prerequisites
 - installation of Fedora Atomic (Silverblue) with user/first run set up
 
-### Base
+## Base
 
 From official fedora-bootc image with added stuff
 
@@ -29,7 +29,7 @@ rpm-ostree rebase ostree-unverified-registry:ghcr.io/emblem-66/test2:base
 sudo bootc switch ghcr.io/emblem-66/test2:base
 ```
 
-### Silverblue
+## Silverblue
 
 - GNOME desktop
 - flatpak
@@ -48,7 +48,7 @@ rpm-ostree rebase ostree-unverified-registry:ghcr.io/emblem-66/test2:silverblue
 sudo bootc switch ghcr.io/emblem-66/test2:silverblue
 ```
 
-### Serverblue
+## Serverblue
 
 - headless management
 - cockpit extra
