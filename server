@@ -11,3 +11,10 @@ systemctl enable cockpit.socket || true
 #systemctl enable httpd.service || true
 
 rpm -qa | sort | grep cockpit
+
+# rpm-fusion
+dnf install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+
+dnf install -y --allowerasing libavcodec-freeworld mesa*freeworld ffmpeg gstreamer*
+
+dnf install -y jellyfin
