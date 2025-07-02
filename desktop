@@ -1,5 +1,4 @@
 #!/bin/bash
-
 set -ouex pipefail
 
 #dnf group install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  base-graphical
