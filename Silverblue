@@ -20,6 +20,8 @@ dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable 
 dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable flatpak
 dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable gnome-shell
 dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable gdm
+dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable gnome-system-monitor gnome-software
+dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable gnome-disk-utility
 dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable nautilus
 dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable ptyxis
 dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable adw-gtk3-theme
