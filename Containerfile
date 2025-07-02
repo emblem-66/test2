@@ -1,9 +1,24 @@
-#FROM quay.io/fedora/fedora-bootc:latest AS base
-#FROM quay.io/fedora/fedora-silverblue:latest AS base
-FROM quay.io/fedora-ostree-desktops/base-atomic:42 AS base
+# to be deleted
+FROM quay.io/fedora/fedora-silverblue:latest AS silverblue
+RUN curl -s https://raw.githubusercontent.com/Emblem-66/test2/refs/heads/main/silverblue | bash \
+ && dnf clean all \
+ && rm -rf /tmp/* /var/* /usr/etc \
+ && rpm-ostree cleanup -m \
+ && ostree container commit
+RUN bootc container lint
+
+# to be deleted
+FROM quay.io/fedora-ostree-desktops/base-atomic:42 AS fedora-ostree-desktops
+RUN curl -s https://raw.githubusercontent.com/Emblem-66/test2/refs/heads/main/fedora-ostree-desktops | bash \
+ && dnf clean all \
+ && rm -rf /tmp/* /var/* /usr/etc \
+ && rpm-ostree cleanup -m \
+ && ostree container commit
+RUN bootc container lint
 
 # Base image
-RUN curl -s https://raw.githubusercontent.com/Emblem-66/test2/refs/heads/main/Base | bash \
+FROM quay.io/fedora/fedora-bootc:latest AS base
+RUN curl -s https://raw.githubusercontent.com/Emblem-66/test2/refs/heads/main/base | bash \
  && dnf clean all \
  && rm -rf /tmp/* /var/* /usr/etc \
  && rpm-ostree cleanup -m \
@@ -11,9 +26,9 @@ RUN curl -s https://raw.githubusercontent.com/Emblem-66/test2/refs/heads/main/Ba
 RUN bootc container lint
 
 # Workstation image
-#FROM ghcr.io/emblem-66/test2:base AS silverblue
-FROM base AS silverblue
-RUN curl -s https://raw.githubusercontent.com/Emblem-66/test2/refs/heads/main/Silverblue | bash \
+#FROM ghcr.io/emblem-66/test2:base AS desktop
+FROM base AS desktop
+RUN curl -s https://raw.githubusercontent.com/Emblem-66/test2/refs/heads/main/desktop | bash \
  && dnf clean all \
  && rm -rf /tmp/* /var/* /usr/etc \
  && rpm-ostree cleanup -m \
@@ -21,9 +36,9 @@ RUN curl -s https://raw.githubusercontent.com/Emblem-66/test2/refs/heads/main/Si
 RUN bootc container lint
 
 # Server image
-#FROM ghcr.io/emblem-66/test2:base AS serverblue
-FROM base AS serverblue
-RUN curl -s https://raw.githubusercontent.com/Emblem-66/test2/refs/heads/main/Serverblue | bash \
+#FROM ghcr.io/emblem-66/test2:base AS server
+FROM base AS server
+RUN curl -s https://raw.githubusercontent.com/Emblem-66/test2/refs/heads/main/server | bash \
  && dnf clean all \
  && rm -rf /tmp/* /var/* /usr/etc \
  && rpm-ostree cleanup -m \
