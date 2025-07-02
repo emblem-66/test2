@@ -17,4 +17,12 @@ dnf install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-
 
 dnf install -y --allowerasing libavcodec-freeworld mesa*freeworld ffmpeg gstreamer*
 
-dnf install -y jellyfin
+dnf install -y jellyfin*
+systemctl enable jellyfin
+
+
+
+
+#transmission
+
+#https://linuxcapable.com/how-to-install-transmission-on-fedora-linux/
