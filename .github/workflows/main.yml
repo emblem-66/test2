@@ -50,14 +50,33 @@ jobs:
     #  run: podman build -f Containerfile -t ghcr.io/emblem-66/test2:${{ matrix.variant }} --target ${{ matrix.variant }} .
     #- name: Push Images
     #  run: podman push ghcr.io/emblem-66/test2:${{ matrix.variant }}
-    - name: Build and Push Base Image
-      run: podman build -f Containerfile -t ghcr.io/emblem-66/test2:base --target base . && podman push ghcr.io/emblem-66/test2:base
-    - name: Build and Push Silverblue Image
-      run: podman build -f Containerfile -t ghcr.io/emblem-66/test2:silverblue --target silverblue . && podman push ghcr.io/emblem-66/test2:silverblue
-    - name: Build and Push Serverblue Image
-      run: podman build -f Containerfile -t ghcr.io/emblem-66/test2:serverblue --target serverblue . && podman push ghcr.io/emblem-66/test2:serverblue
+    #- name: Build and Push Silverblue Image
+    #  run: podman build -f Containerfile -t ghcr.io/emblem-66/test2:silverblue --target silverblue . && podman push ghcr.io/emblem-66/test2:silverblue
+    #- name: Build and Push fedora-ostree-desktops Image
+    #  run: podman build -f Containerfile -t ghcr.io/emblem-66/test2:fedora-ostree-desktops --target fedora-ostree-desktops . && podman push ghcr.io/emblem-66/test2:fedora-ostree-desktops
+    #- name: Build and Push Base Image
+    #  run: podman build -f Containerfile -t ghcr.io/emblem-66/test2:base --target base . && podman push ghcr.io/emblem-66/test2:base
+    #- name: Build and Push Silverblue Image
+    #  run: podman build -f Containerfile -t ghcr.io/emblem-66/test2:desktop --target desktop . && podman push ghcr.io/emblem-66/test2:desktop
+    #- name: Build and Push Serverblue Image
+    #  run: podman build -f Containerfile -t ghcr.io/emblem-66/test2:server --target server . && podman push ghcr.io/emblem-66/test2:server
     #- name: Build and Push Images
     #  run: podman build -f Containerfile -t ghcr.io/emblem-66/test2:${{ matrix.variant }} --target ${{ matrix.variant }} . && podman push ghcr.io/emblem-66/test2:${{ matrix.variant }}
+
+    - name: Build and Push silverblue
+      run: ./build-and-push.sh silverblue
+
+    - name: Build and Push fedora-ostree-desktops
+      run: ./build-and-push.sh fedora-ostree-desktops
+
+    - name: Build and Push base
+      run: ./build-and-push.sh base
+
+    - name: Build and Push desktop
+      run: ./build-and-push.sh desktop
+
+    - name: Build and Push server
+      run: ./build-and-push.sh server
 
 
 #--------------------------------------------
