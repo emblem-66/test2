@@ -1,3 +1,140 @@
 #!/bin/bash
-
 set -ouex pipefail
+
+
+rm -rf /etc/yum.repos.d/fedora-cisco-openh264.repo
+
+# System auto updates
+sed -i 's/#AutomaticUpdatePolicy=none/AutomaticUpdatePolicy=stage/' /etc/rpm-ostreed.conf 
+systemctl enable rpm-ostreed-automatic.timer || true 
+
+cat /etc/rpm-ostreed.conf 
+cat /etc/systemd/system/timers.target.wants/rpm-ostreed-automatic.timer
+cat /usr/lib/systemd/system/rpm-ostreed-automatic.timer
+
+# cat /usr/lib/systemd/system/bootc-fetch-apply-updates.service
+#[Unit]
+#Description=Apply bootc updates
+#Documentation=man:bootc(8)
+#ConditionPathExists=/run/ostree-booted
+#[Service]
+#Type=oneshot
+#ExecStart=/usr/bin/bootc update --apply --quiet
+
+# cat /usr/lib/systemd/system/bootc-fetch-apply-updates.timer
+#[Unit]
+#Description=Apply bootc updates
+#Documentation=man:bootc(8)
+#ConditionPathExists=/run/ostree-booted
+
+#[Timer]
+# Disable the automatic reboot on the update service for bootc
+#OnBootSec=1h
+# This time is relatively arbitrary and obviously expected to be overridden/changed
+#OnUnitInactiveSec=8h
+# When deploying a large number of systems, it may be beneficial to increase this value to help with load on the registry.
+#RandomizedDelaySec=2h
+#[Install]
+#WantedBy=timers.target
+
+# /*
+# Configure Updates
+# */
+#sed -i 's|^ExecStart=.*|ExecStart=/usr/bin/bootc update --quiet|' /usr/lib/systemd/system/bootc-fetch-apply-updates.service
+#sed -i 's|^OnUnitInactiveSec=.*|OnUnitInactiveSec=7d\nPersistent=true|' /usr/lib/systemd/system/bootc-fetch-apply-updates.timer
+#sed -i 's|#AutomaticUpdatePolicy.*|AutomaticUpdatePolicy=stage|' /etc/rpm-ostreed.conf
+#sed -i 's|#LockLayering.*|LockLayering=true|' /etc/rpm-ostreed.conf
+cat /usr/lib/systemd/system/bootc-fetch-apply-updates.service
+cat /usr/lib/systemd/system/bootc-fetch-apply-updates.timer
+
+
+# Disable the automatic reboot on the update service for bootc
+#mkdir -p /etc/systemd/system/bootc-fetch-apply-updates.service.d
+#cat << EOF > /etc/systemd/system/bootc-fetch-apply-updates.service.d/10-no-apply.conf
+#[Service]
+#ExecStart=
+#ExecStart=/usr/bin/bootc update --quiet
+#EOF
+
+# Firewall
+dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable firewalld
+systemctl enable firewalld.service || true 
+
+# Tailscale
+dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable tailscale 
+systemctl enable tailscaled.service || true 
+
+# SSH
+systemctl enable sshd.service || true 
+
+# Cockpit - basic only
+dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable cockpit #cockpit-machines cockpit-podman cockpit-files cockpit-navigator cockpit-selinux
+systemctl enable cockpit.socket || true
+
+# Common packages
+dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable git
+dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable rsync
+
+# Toolbox to Distrobox
+dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable distrobox
+#dnf remove -y toolbox
+
+# Repo cleanup
+#rm -rf /etc/yum.repos.d/_copr:copr.fedorainfracloud.org:phracek:PyCharm.repo
+#rm -rf /etc/yum.repos.d/fedora-cisco-openh264.repo
+#rm -rf /etc/yum.repos.d/google-chrome.repo
+#rm -rf /etc/yum.repos.d/rpmfusion-nonfree-nvidia-driver.repo
+#rm -rf /etc/yum.repos.d/rpmfusion-nonfree-steam.repo
+# DNF auto updates
+#sed -i 's/#AutomaticUpdatePolicy=none/AutomaticUpdatePolicy=stage/' /etc/rpm-ostreed.conf
+#systemctl enable rpm-ostreed-automatic.timer || true
+#dnf -y install tailscale git
+#systemctl enable tailscaled.service || true
+#systemctl enable sshd.service || true
+# Debloat
+#dnf -y remove firefox* gnome-shell-extension* gnome-tour yelp* gnome-software-rpm-ostree virtualbox-guest-additions malcontent-control fedora-chromium-config*
+
+
+
+#dnf group install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  base-graphical
+#dnf group install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  container-management
+#dnf group install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  core
+#dnf group install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  fonts
+#dnf group install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  gnome-desktop
+#dnf group install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  guest-desktop-agents
+#dnf group install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  hardware-support
+#dnf group install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  multimedia
+#dnf group install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  networkmanager-submodules
+#dnf group install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  printing
+#dnf group install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  workstation-product
+#dnf group install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable  virtualization 
+
+#dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable fedora-release-silverblue
+dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable fedora-release-ostree-desktop
+dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable flatpak
+dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable gnome-shell
+dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable gdm
+dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable gnome-system-monitor gnome-software
+dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable gnome-disk-utility
+dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable nautilus
+dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable ptyxis
+dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable adw-gtk3-theme
+dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable tuned
+
+systemctl set-default graphical.target
+
+# Flatpak setup
+echo -e "[Unit]\nDescription=Update Flatpaks\n[Service]\nType=oneshot\nExecStart=/usr/bin/flatpak remote-modify --disable fedora ; /usr/bin/flatpak remote-modify --enable flathub ; /usr/bin/flatpak uninstall --unused -y --noninteractive ; /usr/bin/bash -c 'curl -sSL https://raw.githubusercontent.com/emblem-66/Linux-Stuff/refs/heads/main/flatpak.list | xargs -r flatpak install -y --noninteractive' ; /usr/bin/bash -c 'cat /var/home/$(whoami)/.flatpak-apps.list | xargs -r flatpak install -y --noninteractive' ; /usr/bin/flatpak update -y --noninteractive\n[Install]\nWantedBy=default.target\n" | tee /etc/systemd/system/flatpak-update.service
+echo -e "[Unit]\nDescription=Update Flatpaks\n[Timer]\nOnCalendar=*:0/4\nPersistent=true\n[Install]\nWantedBy=timers.target\n" | tee /etc/systemd/system/flatpak-update.timer
+systemctl enable flatpak-update.timer || true
+# Morewaita Icons
+git clone https://github.com/somepaulo/MoreWaita.git /usr/share/icons/MoreWaita/
+# Gsettings
+gsettings set org.gnome.desktop.wm.preferences resize-with-right-button "true"
+
+rpm -qa | sort
+
+rpm -qa | sort | grep kernel
+rpm -qa | sort | grep gnome
+rpm -qa | sort | grep mesa
+rpm -qa | sort | grep xdg-user-dirs
