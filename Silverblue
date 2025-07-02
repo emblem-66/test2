@@ -23,6 +23,7 @@ dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable 
 dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable nautilus
 dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable ptyxis
 dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable adw-gtk3-theme
+dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable tuned
 
 systemctl set-default graphical.target
 
