@@ -99,7 +99,8 @@ transmission
 #--allowerasing \
 #jellyfin
 
-dnf install --assumeyes 
+dnf install \
+--assumeyes \
 --skip-unavailable \
 --setopt=install_weak_deps=False \
 --allowerasing \
