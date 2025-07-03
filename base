@@ -78,6 +78,11 @@ dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable 
 dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable distrobox
 #dnf remove -y toolbox
 
+dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable \
+bash-completion \
+tuned tuned-ppd \
+syncthing 
+
 # Repo cleanup
 #rm -rf /etc/yum.repos.d/_copr:copr.fedorainfracloud.org:phracek:PyCharm.repo
 #rm -rf /etc/yum.repos.d/fedora-cisco-openh264.repo
