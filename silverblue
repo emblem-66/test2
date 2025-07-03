@@ -90,7 +90,7 @@ transmission
 
 
 # Jellyfin https://idroot.us/install-jellyfin-fedora-42/
-#dnf remove -y ffmpeg-free
+dnf remove -y ffmpeg-free
 dnf install \
 --assumeyes \
 --skip-broken \
