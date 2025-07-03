@@ -30,7 +30,7 @@ rpm-ostree rebase ostree-unverified-registry:ghcr.io/emblem-66/test2:base
 sudo bootc switch ghcr.io/emblem-66/test2:base
 ```
 
-## Silverblue
+## Desktop
 
 - GNOME desktop
 - flatpak
@@ -38,18 +38,18 @@ sudo bootc switch ghcr.io/emblem-66/test2:base
   - flatpak app autoinstall
 
 ```
-FROM ghcr.io/emblem-66/test2:silverblue
+FROM ghcr.io/emblem-66/test2:desktop
 ```
 
 ```
-rpm-ostree rebase ostree-unverified-registry:ghcr.io/emblem-66/test2:silverblue
+rpm-ostree rebase ostree-unverified-registry:ghcr.io/emblem-66/test2:desktop
 ```
 
 ```
-sudo bootc switch ghcr.io/emblem-66/test2:silverblue
+sudo bootc switch ghcr.io/emblem-66/test2:desktop
 ```
 
-## Serverblue
+## Server
 
 - headless management
 - cockpit extra
@@ -58,13 +58,13 @@ sudo bootc switch ghcr.io/emblem-66/test2:silverblue
 - docker?
 
 ```
-FROM ghcr.io/emblem-66/test2:serverblue
+FROM ghcr.io/emblem-66/test2:server
 ```
 
 ```
-rpm-ostree rebase ostree-unverified-registry:ghcr.io/emblem-66/test2:serverblue
+rpm-ostree rebase ostree-unverified-registry:ghcr.io/emblem-66/test2:server
 ```
 
 ```
-sudo bootc switch ghcr.io/emblem-66/test2:serverblue
+sudo bootc switch ghcr.io/emblem-66/test2:server
 ```
