@@ -22,7 +22,17 @@ malcontent-control \
 fedora-chromium-config* \
 toolbox
 
-dnf install -y adw-gtk3-theme
+# rpm-fusion
+dnf install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+
+dnf install \
+--assumeyes \
+--skip-broken \
+--skip-unavailable \
+--setopt=install_weak_deps=False \
+--nogpgcheck \
+--allowerasing \
+adw-gtk3-theme
 
 
 # /*
@@ -51,29 +61,44 @@ echo -e "[Unit]\nDescription=Update Flatpaks\n[Timer]\nOnCalendar=*:0/4\nPersist
 git clone https://github.com/somepaulo/MoreWaita.git /usr/share/icons/MoreWaita/
 
 
-
-dnf install --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable -y cockpit #* #* #cockpit-machines cockpit-podman cockpit-files cockpit-navigator cockpit-selinux
-systemctl enable cockpit.socket || true
-
 #dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable podman podman-compose
 
-# rpm-fusion
-dnf install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 
 #dnf install -y --allowerasing libavcodec-freeworld mesa*freeworld ffmpeg gstreamer*
 
 # DELUGE https://idroot.us/install-deluge-fedora-42/
-dnf install --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable -y deluge
+dnf install \
+--assumeyes \
+--skip-broken \
+--skip-unavailable \
+--setopt=install_weak_deps=False \
+--nogpgcheck \
+--allowerasing \
+deluge
 #systemctl enable deluge
 
-dnf install --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable -y transmission
+dnf install \
+--assumeyes \
+--skip-broken \
+--skip-unavailable \
+--setopt=install_weak_deps=False \
+--nogpgcheck \
+--allowerasing \
+transmission
 #systemctl enable transmission
 
 
 
 # Jellyfin https://idroot.us/install-jellyfin-fedora-42/
 #dnf remove -y ffmpeg-free
-dnf install --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable --allowerasing -y jellyfin
+dnf install \
+--assumeyes \
+--skip-broken \
+--skip-unavailable \
+--setopt=install_weak_deps=False \
+--nogpgcheck \
+--allowerasing \
+jellyfin
 systemctl enable jellyfin
 #firewall-cmd --permanent --add-service=jellyfin
 #firewall-cmd --permanent --add-port=8096/tcp
@@ -85,7 +110,14 @@ systemctl enable jellyfin
 
 
 # SAMBA https://idroot.us/install-samba-fedora-42/
-dnf install --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable -y samba samba-common samba-client
+dnf install \
+--assumeyes \
+--skip-broken \
+--skip-unavailable \
+--setopt=install_weak_deps=False \
+--nogpgcheck \
+--allowerasing \
+samba samba-common samba-client
 systemctl enable smb nmb
 
 # immich
@@ -94,14 +126,28 @@ dnf install --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable -y 
 
 
 # Tailscale
-dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable tailscale 
+dnf install \
+--assumeyes \
+--skip-broken \
+--skip-unavailable \
+--setopt=install_weak_deps=False \
+--nogpgcheck \
+--allowerasing \
+tailscale 
 systemctl enable tailscaled.service || true 
 
 # SSH
 systemctl enable sshd.service || true 
 
 # Cockpit - basic only
-dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable cockpit
+dnf install \
+--assumeyes \
+--skip-broken \
+--skip-unavailable \
+--setopt=install_weak_deps=False \
+--nogpgcheck \
+--allowerasing \
+cockpit
 systemctl enable cockpit.socket || true
 
 
