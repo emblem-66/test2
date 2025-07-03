@@ -91,14 +91,14 @@ transmission
 
 # Jellyfin https://idroot.us/install-jellyfin-fedora-42/
 dnf remove -y ffmpeg-free
-dnf install \
---assumeyes \
---skip-broken \
---skip-unavailable \
---setopt=install_weak_deps=False \
---nogpgcheck \
---allowerasing \
-jellyfin
+#dnf install \
+#--assumeyes \
+#--skip-broken \
+#--skip-unavailable \
+#--setopt=install_weak_deps=False \
+#--nogpgcheck \
+#--allowerasing \
+dnf install -y jellyfin
 #systemctl enable jellyfin
 #firewall-cmd --permanent --add-service=jellyfin
 #firewall-cmd --permanent --add-port=8096/tcp
