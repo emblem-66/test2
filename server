@@ -17,7 +17,7 @@ dnf install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-
 
 #dnf install -y --allowerasing libavcodec-freeworld mesa*freeworld ffmpeg gstreamer*
 
-#dnf install -y jellyfin*
+#dnf --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable -y jellyfin*
 #systemctl enable jellyfin
 
 
@@ -26,6 +26,44 @@ dnf install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-
 #transmission
 
 #https://linuxcapable.com/how-to-install-transmission-on-fedora-linux/
+
+
+# -------------------------------- #
+
+# https://idroot.us/install-ftp-server-fedora-42/
+
+
+hostnamectl set-hostname --static server
+
+# DELUGE https://idroot.us/install-deluge-fedora-42/
+dnf --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable -y deluge-web
+systemctl enable deluge-web
+
+# Jellyfin https://idroot.us/install-jellyfin-fedora-42/
+dnf --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable -y jellyfin
+systemctl enable jellyfin
+firewall-cmd --permanent --add-service=jellyfin
+firewall-cmd --permanent --add-port=8096/tcp
+firewall-cmd --permanent --add-port=8920/tcp
+firewall-cmd --permanent --add-port=1900/udp
+dnf --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable -y libva libva-intel-driver
+dnf --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable -y zram-generator
+systemctl enable systemd-zram-setup@zram0.service
+
+# NEXTCLOUD https://idroot.us/install-nextcloud-fedora-42/
+# NEXTCLOUD https://fedoraproject.org/wiki/Nextcloud
+
+# SAMBA https://idroot.us/install-samba-fedora-42/
+dnf --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable -y samba samba-common samba-client
+systemctl enable smb nmb
+
+# immich
+dnf copr enable -y mbooth/immich 
+dnf --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable -y immich
+
+# Caddy https://idroot.us/install-caddy-fedora-42/
+# Nginx https://idroot.us/install-nginx-fedora-42/
+
 
 
 
@@ -93,44 +131,6 @@ dnf install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-
 #
 #systemctl restart podman-compose.service
 #journalctl -u podman-compose.service
-
-
-# -------------------------------- #
-
-# https://idroot.us/install-ftp-server-fedora-42/
-
-
-hostnamectl set-hostname --static server
-
-# DELUGE https://idroot.us/install-deluge-fedora-42/
-dnf install -y deluge-web
-systemctl enable deluge-web
-
-# Jellyfin https://idroot.us/install-jellyfin-fedora-42/
-dnf install -y jellyfin
-systemctl enable jellyfin
-firewall-cmd --permanent --add-service=jellyfin
-firewall-cmd --permanent --add-port=8096/tcp
-firewall-cmd --permanent --add-port=8920/tcp
-firewall-cmd --permanent --add-port=1900/udp
-dnf install -y libva libva-intel-driver
-dnf install -y zram-generator
-systemctl enable systemd-zram-setup@zram0.service
-
-# NEXTCLOUD https://idroot.us/install-nextcloud-fedora-42/
-# NEXTCLOUD https://fedoraproject.org/wiki/Nextcloud
-
-# SAMBA https://idroot.us/install-samba-fedora-42/
-dnf install -y samba samba-common samba-client
-systemctl enable smb nmb
-
-# immich
-dnf copr enable -y mbooth/immich 
-dnf install -y immich
-
-# Caddy https://idroot.us/install-caddy-fedora-42/
-# Nginx https://idroot.us/install-nginx-fedora-42/
-
 
 
 
