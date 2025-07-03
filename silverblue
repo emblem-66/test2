@@ -99,7 +99,7 @@ dnf install \
 --nogpgcheck \
 --allowerasing \
 jellyfin
-systemctl enable jellyfin
+#systemctl enable jellyfin
 #firewall-cmd --permanent --add-service=jellyfin
 #firewall-cmd --permanent --add-port=8096/tcp
 #firewall-cmd --permanent --add-port=8920/tcp
@@ -118,11 +118,18 @@ dnf install \
 --nogpgcheck \
 --allowerasing \
 samba samba-common samba-client
-systemctl enable smb nmb
+#systemctl enable smb nmb
 
 # immich
-dnf copr enable -y mbooth/immich 
-dnf install --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable -y immich
+dnf copr enable -y mbooth/immich
+dnf install \
+--assumeyes \
+--skip-broken \
+--skip-unavailable \
+--setopt=install_weak_deps=False \
+--nogpgcheck \
+--allowerasing \
+immich
 
 
 # Tailscale
