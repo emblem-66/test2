@@ -1,12 +1,12 @@
 #!/bin/bash
 set -ouex pipefail
 
-dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable NetworkManager
-dnf install --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable -y cockpit* #cockpit-machines cockpit-podman cockpit-files cockpit-navigator cockpit-selinux
-
-dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable podman podman-compose
-
+#dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable NetworkManager
+dnf install --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable -y cockpit #* #cockpit-machines cockpit-podman cockpit-files cockpit-navigator cockpit-selinux
 systemctl enable cockpit.socket || true
+
+#dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable podman podman-compose
+
 #systemctl enable libvirtd || true
 #systemctl enable httpd.service || true
 
@@ -15,10 +15,10 @@ rpm -qa | sort | grep cockpit
 # rpm-fusion
 dnf install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 
-dnf install -y --allowerasing libavcodec-freeworld mesa*freeworld ffmpeg gstreamer*
+#dnf install -y --allowerasing libavcodec-freeworld mesa*freeworld ffmpeg gstreamer*
 
-dnf install -y jellyfin*
-systemctl enable jellyfin
+#dnf install -y jellyfin*
+#systemctl enable jellyfin
 
 
 
@@ -36,60 +36,154 @@ systemctl enable jellyfin
 
 # podman containers
 
-/etc/containers/
-├── podman-compose.yml
-/etc/systemd/system/
-├── podman-compose.service
-├── podman-compose.timer
+#/etc/containers/
+#├── podman-compose.yml
+#/etc/systemd/system/
+#├── podman-compose.service
+#├── podman-compose.timer
 
 
 #
 
-[Unit]
-Description=Jellyfin via Podman Compose
-Requires=network-online.target
-After=network-online.target
+#[Unit]
+#Description=Jellyfin via Podman Compose
+#Requires=network-online.target
+#After=network-online.target
 
-[Service]
-Type=oneshot
-RemainAfterExit=true
-WorkingDirectory=/etc/containers/jellyfin-compose
-ExecStartPre=/usr/bin/podman-compose pull
-ExecStart=/usr/bin/podman-compose up -d
-ExecStop=/usr/bin/podman-compose down
-TimeoutStartSec=300
-TimeoutStopSec=60
+#[Service]
+#Type=oneshot
+#RemainAfterExit=true
+#WorkingDirectory=/etc/containers/jellyfin-compose
+#ExecStartPre=/usr/bin/podman-compose pull
+#ExecStart=/usr/bin/podman-compose up -d
+#ExecStop=/usr/bin/podman-compose down
+#TimeoutStartSec=300
+#TimeoutStopSec=60
 
-[Install]
-WantedBy=multi-user.target
+#[Install]
+#WantedBy=multi-user.target
 
 #
 
-[Unit]
-Description=Weekly update for Jellyfin Podman Compose stack
+#[Unit]
+#Description=Weekly update for Jellyfin Podman Compose stack
 
-[Timer]
-OnCalendar=weekly
-Persistent=true
-Unit=jellyfin-compose.service
+#[Timer]
+#OnCalendar=weekly
+#Persistent=true
+#Unit=jellyfin-compose.service
 
-[Install]
-WantedBy=timers.target
+#[Install]
+#WantedBy=timers.target
 
 #
 
 # Enable the compose stack on boot
-systemctl enable podman-compose.service
+#systemctl enable podman-compose.service
 
 # Enable the weekly update timer
-systemctl enable podman-compose.timer
+#systemctl enable podman-compose.timer
 
 # Start immediately (optional)
-systemctl start podman-compose.service
-systemctl start podman-compose.timer
+#systemctl start podman-compose.service
+#systemctl start podman-compose.timer
 #
-systemctl list-timers podman-compose.timer
-systemctl start podman-compose.timer
+#systemctl list-timers podman-compose.timer
+#systemctl start podman-compose.timer
 #
-systemctl restart podman-compose.service
-journalctl -u podman-compose.service
+#systemctl restart podman-compose.service
+#journalctl -u podman-compose.service
+
+
+# -------------------------------- #
+
+# https://idroot.us/install-ftp-server-fedora-42/
+
+
+hostnamectl set-hostname --static server
+
+# DELUGE https://idroot.us/install-deluge-fedora-42/
+dnf install -y deluge-web
+systemctl enable deluge-web
+
+# Jellyfin https://idroot.us/install-jellyfin-fedora-42/
+dnf install -y jellyfin
+systemctl enable jellyfin
+firewall-cmd --permanent --add-service=jellyfin
+firewall-cmd --permanent --add-port=8096/tcp
+firewall-cmd --permanent --add-port=8920/tcp
+firewall-cmd --permanent --add-port=1900/udp
+dnf install -y libva libva-intel-driver
+dnf install -y zram-generator
+systemctl enable systemd-zram-setup@zram0.service
+
+# NEXTCLOUD https://idroot.us/install-nextcloud-fedora-42/
+# NEXTCLOUD https://fedoraproject.org/wiki/Nextcloud
+
+# SAMBA https://idroot.us/install-samba-fedora-42/
+dnf install -y samba samba-common samba-client
+systemctl enable smb nmb
+
+# immich
+dnf copr enable -y mbooth/immich 
+dnf install -y immich
+
+# Caddy https://idroot.us/install-caddy-fedora-42/
+# Nginx https://idroot.us/install-nginx-fedora-42/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
