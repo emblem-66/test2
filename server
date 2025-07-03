@@ -26,3 +26,70 @@ systemctl enable jellyfin
 #transmission
 
 #https://linuxcapable.com/how-to-install-transmission-on-fedora-linux/
+
+
+
+
+
+
+#---------------------
+
+# podman containers
+
+/etc/containers/
+├── podman-compose.yml
+/etc/systemd/system/
+├── podman-compose.service
+├── podman-compose.timer
+
+
+#
+
+[Unit]
+Description=Jellyfin via Podman Compose
+Requires=network-online.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=true
+WorkingDirectory=/etc/containers/jellyfin-compose
+ExecStartPre=/usr/bin/podman-compose pull
+ExecStart=/usr/bin/podman-compose up -d
+ExecStop=/usr/bin/podman-compose down
+TimeoutStartSec=300
+TimeoutStopSec=60
+
+[Install]
+WantedBy=multi-user.target
+
+#
+
+[Unit]
+Description=Weekly update for Jellyfin Podman Compose stack
+
+[Timer]
+OnCalendar=weekly
+Persistent=true
+Unit=jellyfin-compose.service
+
+[Install]
+WantedBy=timers.target
+
+#
+
+# Enable the compose stack on boot
+systemctl enable podman-compose.service
+
+# Enable the weekly update timer
+systemctl enable podman-compose.timer
+
+# Start immediately (optional)
+systemctl start podman-compose.service
+systemctl start podman-compose.timer
+#
+systemctl list-timers podman-compose.timer
+systemctl start podman-compose.timer
+#
+systemctl restart podman-compose.service
+journalctl -u podman-compose.service
