@@ -33,6 +33,12 @@ dnf install \
 --allowerasing \
 adw-gtk3-theme
 
+#curl -s https://api.github.com/repos/stashapp/stash/releases/latest | jq -r '.assets[] | select(.name == "stash-linux") | .browser_download_url' | xargs -n 1 curl -LO 
+
+# STASH APP
+curl -s https://api.github.com/repos/stashapp/stash/releases/latest | jq -r '.assets[] | select(.name == "stash-linux") | .browser_download_url' | xargs -n 1 sudo curl -Lo /usr/bin/stashapp && chmod +x /usr/bin/stashapp
+echo -e "[Unit]\nDescription=Run Stash App\n[Service]\nExecStart=/usr/bin/stashapp\nRestart=on-failure\n[Install]\nWantedBy=default.target\n" | tee /etc/systemd/system/stashapp.service
+systemctl enable stashapp.service
 
 # /*
 # Configure Updates
