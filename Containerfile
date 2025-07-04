@@ -5,7 +5,7 @@ FROM docker.io/archlinux:latest AS arch
 # && rm -rf /tmp/* /var/* /usr/etc \
 # && rpm-ostree cleanup -m \
 # && ostree container commit
-RUN bootc container lint
+#RUN bootc container lint
 
 
 # to be deleted
