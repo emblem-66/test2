@@ -1,10 +1,10 @@
 # to be deleted
 FROM docker.io/archlinux:latest AS arch
-RUN curl -s https://raw.githubusercontent.com/Emblem-66/test2/refs/heads/main/arch | bash \
+#RUN curl -s https://raw.githubusercontent.com/Emblem-66/test2/refs/heads/main/arch | bash \
 # && dnf clean all \
 # && rm -rf /tmp/* /var/* /usr/etc \
 # && rpm-ostree cleanup -m \
- && ostree container commit
+# && ostree container commit
 RUN bootc container lint
 
 
