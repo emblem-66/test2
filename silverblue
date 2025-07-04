@@ -40,6 +40,9 @@ curl -s https://api.github.com/repos/stashapp/stash/releases/latest | jq -r '.as
 echo -e "[Unit]\nDescription=Run Stash App\n[Service]\nExecStart=/usr/bin/stashapp\nRestart=on-failure\n[Install]\nWantedBy=default.target\n" | tee /etc/systemd/system/stashapp.service
 systemctl enable stashapp.service
 
+
+dnf install -y podman podman-compose cockpit-podman
+
 # /*
 # Configure Updates
 # */
