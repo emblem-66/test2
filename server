@@ -1,8 +1,7 @@
 #!/bin/bash
 set -ouex pipefail
 
-#dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable NetworkManager
-dnf install --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable -y cockpit #* #cockpit-machines cockpit-podman cockpit-files cockpit-navigator cockpit-selinux
+dnf install -y cockpit #* #cockpit-machines cockpit-podman cockpit-files cockpit-navigator cockpit-selinux
 systemctl enable cockpit.socket || true
 
 dnf install -y distrobox
@@ -14,7 +13,7 @@ dnf install -y podman podman-compose
 #systemctl enable libvirtd || true
 #systemctl enable httpd.service || true
 
-#rpm -qa | sort | grep cockpit
+rpm -qa | sort
 
 # rpm-fusion
 #dnf install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
