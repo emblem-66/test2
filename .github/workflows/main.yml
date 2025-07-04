@@ -74,6 +74,13 @@ jobs:
     #- name: Build and Push server
     #  run: ./build-and-push.sh server
 
+    - name: Build and Push arch
+      run: |
+        REPO=test2
+        TAG=arch
+        podman build -f Containerfile -t ghcr.io/emblem-66/$REPO:$TAG --target $TAG .
+        podman push ghcr.io/emblem-66/$REPO:$TAG
+
     - name: Build and Push silverblue
       run: |
         REPO=test2
