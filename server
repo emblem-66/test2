@@ -5,15 +5,19 @@ set -ouex pipefail
 dnf install --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable -y cockpit #* #cockpit-machines cockpit-podman cockpit-files cockpit-navigator cockpit-selinux
 systemctl enable cockpit.socket || true
 
+dnf install -y distrobox
+dnf install -y toolbox
+dnf install -y podman podman-compose
+
 #dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable podman podman-compose
 
 #systemctl enable libvirtd || true
 #systemctl enable httpd.service || true
 
-rpm -qa | sort | grep cockpit
+#rpm -qa | sort | grep cockpit
 
 # rpm-fusion
-dnf install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+#dnf install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 
 #dnf install -y --allowerasing libavcodec-freeworld mesa*freeworld ffmpeg gstreamer*
 
@@ -35,30 +39,30 @@ dnf install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-
 
 
 # DELUGE https://idroot.us/install-deluge-fedora-42/
-dnf --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable -y deluge-web
-systemctl enable deluge-web
+#dnf --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable -y deluge-web
+#systemctl enable deluge-web
 
 # Jellyfin https://idroot.us/install-jellyfin-fedora-42/
-dnf --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable -y jellyfin
-systemctl enable jellyfin
-firewall-cmd --permanent --add-service=jellyfin
-firewall-cmd --permanent --add-port=8096/tcp
-firewall-cmd --permanent --add-port=8920/tcp
-firewall-cmd --permanent --add-port=1900/udp
-dnf --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable -y libva libva-intel-driver
-dnf --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable -y zram-generator
-systemctl enable systemd-zram-setup@zram0.service
+#dnf --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable -y jellyfin
+#systemctl enable jellyfin
+#firewall-cmd --permanent --add-service=jellyfin
+#firewall-cmd --permanent --add-port=8096/tcp
+#firewall-cmd --permanent --add-port=8920/tcp
+#firewall-cmd --permanent --add-port=1900/udp
+#dnf --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable -y libva libva-intel-driver
+#dnf --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable -y zram-generator
+#systemctl enable systemd-zram-setup@zram0.service
 
 # NEXTCLOUD https://idroot.us/install-nextcloud-fedora-42/
 # NEXTCLOUD https://fedoraproject.org/wiki/Nextcloud
 
 # SAMBA https://idroot.us/install-samba-fedora-42/
-dnf --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable -y samba samba-common samba-client
-systemctl enable smb nmb
+#dnf --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable -y samba samba-common samba-client
+#systemctl enable smb nmb
 
 # immich
-dnf copr enable -y mbooth/immich 
-dnf --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable -y immich
+#dnf copr enable -y mbooth/immich 
+#dnf --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable -y immich
 
 # Caddy https://idroot.us/install-caddy-fedora-42/
 # Nginx https://idroot.us/install-nginx-fedora-42/
