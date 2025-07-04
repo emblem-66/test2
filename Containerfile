@@ -1,4 +1,14 @@
 # to be deleted
+FROM docker.io/archlinux:latest AS arch
+RUN curl -s https://raw.githubusercontent.com/Emblem-66/test2/refs/heads/main/arch | bash \
+# && dnf clean all \
+# && rm -rf /tmp/* /var/* /usr/etc \
+# && rpm-ostree cleanup -m \
+ && ostree container commit
+RUN bootc container lint
+
+
+# to be deleted
 FROM quay.io/fedora/fedora-silverblue:latest AS silverblue
 RUN curl -s https://raw.githubusercontent.com/Emblem-66/test2/refs/heads/main/silverblue | bash \
  && dnf clean all \
