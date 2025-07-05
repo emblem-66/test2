@@ -30,7 +30,7 @@ RUN bootc container lint
 FROM quay.io/fedora/fedora-bootc:latest AS base
 RUN curl -s https://raw.githubusercontent.com/Emblem-66/test2/refs/heads/main/base | bash \
  && dnf clean all \
- && rm -rf /tmp/* /var/* /usr/etc \
+ && rm -rf /tmp/* /var/* \
  && rpm-ostree cleanup -m \
  && ostree container commit
 RUN bootc container lint
