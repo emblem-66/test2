@@ -9,7 +9,14 @@ systemctl enable tailscaled.service
 # SSH
 dnf install -y openssh
 systemctl enable sshd.service
-
+dnf install -y firewalld
+systemctl enable firewalld.service
+# Cockpit
+dnf install -y cockpit
+systemctl enable cockpit.socket
+# needed packages
+dnf install -y git rsync 
+# gvfs cups hplip 
 #-----------------------#
 
 #dnf group list --hidden --installed | sort
