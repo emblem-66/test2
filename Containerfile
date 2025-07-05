@@ -2,7 +2,7 @@
 FROM docker.io/archlinux:latest AS arch
 #RUN curl -s https://raw.githubusercontent.com/Emblem-66/test2/refs/heads/main/arch | bash \
 # && dnf clean all \
-# && rm -rf /tmp/* /var/* /usr/etc \
+# && rm -rf /tmp/* /var/* \
 # && rpm-ostree cleanup -m \
 # && ostree container commit
 #RUN bootc container lint
@@ -12,7 +12,7 @@ FROM docker.io/archlinux:latest AS arch
 FROM quay.io/fedora/fedora-silverblue:latest AS silverblue
 RUN curl -s https://raw.githubusercontent.com/Emblem-66/test2/refs/heads/main/silverblue | bash \
  && dnf clean all \
- && rm -rf /tmp/* /var/* /usr/etc \
+ && rm -rf /tmp/* /var/* \
  && rpm-ostree cleanup -m \
  && ostree container commit
 RUN bootc container lint
@@ -21,7 +21,7 @@ RUN bootc container lint
 FROM quay.io/fedora-ostree-desktops/base-atomic:42 AS fedora-ostree-desktops
 RUN curl -s https://raw.githubusercontent.com/Emblem-66/test2/refs/heads/main/fedora-ostree-desktops | bash \
  && dnf clean all \
- && rm -rf /tmp/* /var/* /usr/etc \
+ && rm -rf /tmp/* /var/* \
  && rpm-ostree cleanup -m \
  && ostree container commit
 RUN bootc container lint
@@ -40,7 +40,7 @@ RUN bootc container lint
 FROM base AS desktop
 RUN curl -s https://raw.githubusercontent.com/Emblem-66/test2/refs/heads/main/desktop | bash \
  && dnf clean all \
- && rm -rf /tmp/* /var/* /usr/etc \
+ && rm -rf /tmp/* /var/* \
  && rpm-ostree cleanup -m \
  && ostree container commit
 RUN bootc container lint
@@ -50,7 +50,7 @@ RUN bootc container lint
 FROM base AS server
 RUN curl -s https://raw.githubusercontent.com/Emblem-66/test2/refs/heads/main/server | bash \
  && dnf clean all \
- && rm -rf /tmp/* /var/* /usr/etc \
+ && rm -rf /tmp/* /var/* \
  && rpm-ostree cleanup -m \
  && ostree container commit
 RUN bootc container lint
