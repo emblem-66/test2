@@ -2,6 +2,7 @@
 set -ouexv pipefail
 
 dnf group list --hidden --installed | sort
+dnf group list --hidden | sort
 
 rm -rf /etc/yum.repos.d/fedora-cisco-openh264.repo
 
