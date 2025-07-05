@@ -1,25 +1,29 @@
 #!/bin/bash
 set -ouexv pipefail
 
+install_packages() {
+  sudo dnf install -y --nogpgcheck "$@"
+}
+
 #-----------------------#
 
 # firewalld
-dnf install -y firewalld
+dnf install -y --nogpgcheck firewalld
 systemctl enable firewalld.service
 # defaults to public zone, 
 # SSH
-dnf install -y openssh
+dnf install -y --nogpgcheck openssh
 systemctl enable sshd.service
 # Tailscale
-dnf install -y tailscale 
+dnf install -y --nogpgcheck tailscale 
 systemctl enable tailscaled.service
 # Cockpit
-dnf install -y cockpit
+dnf install -y --nogpgcheck cockpit
 systemctl enable cockpit.socket
 #firewall-cmd --add-service=cockpit
 #firewall-cmd --add-port=9090/tcp
 # needed packages
-dnf install -y git rsync 
+install_packages git rsync 
 # gvfs cups hplip 
 #-----------------------#
 
