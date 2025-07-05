@@ -1,6 +1,8 @@
 #!/bin/bash
 set -ouexv pipefail
 
+dnf instll -y @base-x
+
 rm -rf /etc/yum.repos.d/fedora-cisco-openh264.repo
 
 # System auto updates
