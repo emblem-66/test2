@@ -19,7 +19,7 @@ systemctl enable cockpit.socket
 #firewall-cmd --add-service=cockpit
 #firewall-cmd --add-port=9090/tcp
 # needed packages
-# dnf install -y git rsync 
+dnf install -y git rsync 
 # gvfs cups hplip 
 #-----------------------#
 
