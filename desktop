@@ -41,6 +41,7 @@ dnf install -y --setopt=install_weak_deps=False nautilus
 dnf install -y --setopt=install_weak_deps=False ptyxis
 dnf install -y --setopt=install_weak_deps=False adw-gtk3-theme
 dnf install -y --setopt=install_weak_deps=False tuned #tuned-ppd
+dnf install -y --setopt=install_weak_deps=False pipewire-pulseaudio
 
 systemctl set-default graphical.target
 
