@@ -7,3 +7,15 @@ systemctl enable sshd.service
 # Tailscale
 dnf install -y --nogpgcheck tailscale 
 systemctl enable tailscaled.service
+
+dnf install -y --setopt=install_weak_deps=False flatpak
+dnf install -y --setopt=install_weak_deps=False gnome-shell
+dnf install -y --setopt=install_weak_deps=False gdm
+dnf install -y --setopt=install_weak_deps=False gnome-system-monitor gnome-software gnome-disk-utility
+dnf install -y --setopt=install_weak_deps=False nautilus
+dnf install -y --setopt=install_weak_deps=False ptyxis
+dnf install -y --setopt=install_weak_deps=False adw-gtk3-theme
+#dnf install -y --setopt=install_weak_deps=False tuned #tuned-ppd
+#dnf install -y --setopt=install_weak_deps=False pipewire-pulseaudio
+
+systemctl set-default graphical.target
