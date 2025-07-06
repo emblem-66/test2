@@ -74,49 +74,56 @@ jobs:
     #- name: Build and Push server
     #  run: ./build-and-push.sh server
 
-    - name: Build and Push arch
+    #- name: Build and Push arch
+    #  run: |
+    #    REPO=test2
+    #    TAG=arch
+    #    podman build -f Containerfile -t ghcr.io/emblem-66/$REPO:$TAG --target $TAG .
+    #    podman push ghcr.io/emblem-66/$REPO:$TAG
+
+    #- name: Build and Push silverblue
+    #  run: |
+    #    REPO=test2
+    #    TAG=silverblue
+    #    podman build -f Containerfile -t ghcr.io/emblem-66/$REPO:$TAG --target $TAG .
+    #    podman push ghcr.io/emblem-66/$REPO:$TAG
+
+    #- name: Build and Push fedora-ostree-desktops
+    #  run: |
+    #    REPO=test2
+    #    TAG=fedora-ostree-desktops
+    #    podman build -f Containerfile -t ghcr.io/emblem-66/$REPO:$TAG --target $TAG .
+    #    podman push ghcr.io/emblem-66/$REPO:$TAG
+
+    #- name: Build and Push base
+    #  run: |
+    #    REPO=test2
+    #    TAG=base
+    #    podman build -f Containerfile -t ghcr.io/emblem-66/$REPO:$TAG --target $TAG .
+    #    podman push ghcr.io/emblem-66/$REPO:$TAG
+
+    #- name: Build and Push desktop
+    #  run: |
+    #    REPO=test2
+    #    TAG=desktop
+    #    podman build -f Containerfile -t ghcr.io/emblem-66/$REPO:$TAG --target $TAG .
+    #    podman push ghcr.io/emblem-66/$REPO:$TAG
+
+    #- name: Build and Push server
+    #  run: |
+    #    REPO=test2
+    #    TAG=server
+    #    podman build -f Containerfile -t ghcr.io/emblem-66/$REPO:$TAG --target $TAG .
+    #    podman push ghcr.io/emblem-66/$REPO:$TAG
+
+    - name: Build and Push All Containers (Sequentially)
       run: |
-        REPO=test2
-        TAG=arch
-        podman build -f Containerfile -t ghcr.io/emblem-66/$REPO:$TAG --target $TAG .
-        podman push ghcr.io/emblem-66/$REPO:$TAG
-
-    - name: Build and Push silverblue
-      run: |
-        REPO=test2
-        TAG=silverblue
-        podman build -f Containerfile -t ghcr.io/emblem-66/$REPO:$TAG --target $TAG .
-        podman push ghcr.io/emblem-66/$REPO:$TAG
-
-    - name: Build and Push fedora-ostree-desktops
-      run: |
-        REPO=test2
-        TAG=fedora-ostree-desktops
-        podman build -f Containerfile -t ghcr.io/emblem-66/$REPO:$TAG --target $TAG .
-        podman push ghcr.io/emblem-66/$REPO:$TAG
-
-    - name: Build and Push base
-      run: |
-        REPO=test2
-        TAG=base
-        podman build -f Containerfile -t ghcr.io/emblem-66/$REPO:$TAG --target $TAG .
-        podman push ghcr.io/emblem-66/$REPO:$TAG
-
-    - name: Build and Push desktop
-      run: |
-        REPO=test2
-        TAG=desktop
-        podman build -f Containerfile -t ghcr.io/emblem-66/$REPO:$TAG --target $TAG .
-        podman push ghcr.io/emblem-66/$REPO:$TAG
-
-    - name: Build and Push server
-      run: |
-        REPO=test2
-        TAG=server
-        podman build -f Containerfile -t ghcr.io/emblem-66/$REPO:$TAG --target $TAG .
-        podman push ghcr.io/emblem-66/$REPO:$TAG
-
-
+        TARGET=ghcr.io/emblem-66/test2
+        TAGS=(arch silverblue fedora-ostree-desktops base desktop server)
+        for TAG in "${TAGS[@]}"; do
+          podman build -f Containerfile -t ghcr.io/emblem-66/$TARGET:$TAG --target $TAG .
+          podman push ghcr.io/emblem-66/$TARGET:$TAG
+        done
 
 #--------------------------------------------
 
