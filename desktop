@@ -24,7 +24,7 @@ set -ouex pipefail
 #dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable nautilus
 #dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable ptyxis
 #dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable adw-gtk3-theme
-#dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable tuned tuned-ppd
+dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable tuned #tuned-ppd
 
 # Gnome desktop
 #dnf install -y --setopt=install_weak_deps=False \
@@ -40,7 +40,7 @@ dnf install -y --setopt=install_weak_deps=False gnome-system-monitor gnome-softw
 dnf install -y --setopt=install_weak_deps=False nautilus
 dnf install -y --setopt=install_weak_deps=False ptyxis
 dnf install -y --setopt=install_weak_deps=False adw-gtk3-theme
-#dnf install -y --setopt=install_weak_deps=False tuned tuned-ppd
+dnf install -y --setopt=install_weak_deps=False tuned #tuned-ppd
 
 systemctl set-default graphical.target
 
