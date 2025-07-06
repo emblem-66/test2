@@ -1,2 +1,9 @@
 #!/bin/bash
 set -ouexv pipefail
+
+# SSH
+dnf install -y --nogpgcheck openssh
+systemctl enable sshd.service
+# Tailscale
+dnf install -y --nogpgcheck tailscale 
+systemctl enable tailscaled.service
