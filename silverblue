@@ -70,7 +70,7 @@ git clone https://github.com/somepaulo/MoreWaita.git /usr/share/icons/MoreWaita/
 
 dnf install -y podman podman-compose
 
-dnf config-manager addrepo https://download.docker.com/linux/fedora/docker-ce.repo
+dnf config-manager addrepo --from-repofile="https://download.docker.com/linux/fedora/docker-ce.repo"
 dnf install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
 #dnf install -y --setopt=install_weak_deps=False --nogpgcheck --skip-unavailable podman podman-compose
