@@ -121,7 +121,7 @@ jobs:
         TARGET=ghcr.io/emblem-66/test2
         TAGS=(arch silverblue fedora-ostree-desktops base desktop server)
         for TAG in "${TAGS[@]}"; do
-          podman build -f Containerfile -t ghcr.io/emblem-66/$TARGET:$TAG --target $TAG .
+          podman build -f Containerfile -t $TARGET:$TAG --target $TAG .
           podman push ghcr.io/emblem-66/$TARGET:$TAG
         done
 
