@@ -118,11 +118,11 @@ jobs:
 
     - name: Build and Push All Containers (Sequentially)
       run: |
-        TARGET=ghcr.io/emblem-66/test2
+        TARGET=emblem-66/test2
         TAGS=(arch silverblue fedora-ostree-desktops base desktop server)
         for TAG in "${TAGS[@]}"; do
-          podman build -f Containerfile -t $TARGET:$TAG --target $TAG .
-          podman push ghcr.io/emblem-66/$TARGET:$TAG
+          podman build -f Containerfile -t ghcr.io/$TARGET:$TAG --target $TAG .
+          podman push ghcr.io/$TARGET:$TAG
         done
 
 #--------------------------------------------
