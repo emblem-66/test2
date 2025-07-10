@@ -25,6 +25,9 @@ systemctl enable tailscaled.service
 # needed packages
 install_packages git curl wget rsync
 # gvfs cups hplip 
+
+# to fix locale not found
+dnf install -y langpacks-en
 #-----------------------#
 
 #dnf group list --hidden --installed | sort
