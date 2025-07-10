@@ -33,36 +33,36 @@ set -ouex pipefail
 #&& \
 #dnf clean all && rm -rf /var/cache/libdnf5
 
-dnf install -y --setopt=install_weak_deps=False flatpak
-dnf install -y --setopt=install_weak_deps=False gnome-shell
-dnf install -y --setopt=install_weak_deps=False gdm
-dnf install -y --setopt=install_weak_deps=False gnome-system-monitor gnome-software gnome-disk-utility
-dnf install -y --setopt=install_weak_deps=False gnome-control-center
-dnf install -y --setopt=install_weak_deps=False nautilus
-dnf install -y --setopt=install_weak_deps=False ptyxis
-dnf install -y --setopt=install_weak_deps=False adw-gtk3-theme
-dnf install -y --setopt=install_weak_deps=False tuned tuned-ppd
+dnf install -y flatpak
+dnf install -y gnome-shell
+dnf install -y gdm
+#dnf install -y --setopt=install_weak_deps=False gnome-system-monitor gnome-software gnome-disk-utility
+#dnf install -y --setopt=install_weak_deps=False gnome-control-center
+dnf install -y nautilus
+dnf install -y ptyxis
+#dnf install -y adw-gtk3-theme
+#dnf install -y --setopt=install_weak_deps=False tuned tuned-ppd
 
 
 
-dnf install -y --setopt=install_weak_deps=False pipewire
-dnf install -y --setopt=install_weak_deps=False pipewire-libs
-dnf install -y --setopt=install_weak_deps=False pipewire-pulseaudio
-dnf install -y --setopt=install_weak_deps=False pipewire-utils
-dnf install -y --setopt=install_weak_deps=False pipewire-alsa
-dnf install -y --setopt=install_weak_deps=False pipewire-gstreamer
-dnf install -y --setopt=install_weak_deps=False pipewire-plugin-libcamera
-dnf install -y --setopt=install_weak_deps=False pipewire-jack-audio-connection-kit
-dnf install -y --setopt=install_weak_deps=False pipewire-jack-audio-connection-kit-libs
-dnf install -y --setopt=install_weak_deps=False pulseaudio-utils
-dnf install -y --setopt=install_weak_deps=False pulseaudio-libs
-dnf install -y --setopt=install_weak_deps=False pulseaudio-libs-glib2
-dnf install -y --setopt=install_weak_deps=False wireplumber
-dnf install -y --setopt=install_weak_deps=False wireplumber-libs
-dnf install -y --setopt=install_weak_deps=False alsa-lib
-dnf install -y --setopt=install_weak_deps=False alsa-ucm
-dnf install -y --setopt=install_weak_deps=False alsa-utils
-dnf install -y --setopt=install_weak_deps=False alsa-sof-firmware
+#dnf install -y --setopt=install_weak_deps=False pipewire
+#dnf install -y --setopt=install_weak_deps=False pipewire-libs
+#dnf install -y --setopt=install_weak_deps=False pipewire-pulseaudio
+#dnf install -y --setopt=install_weak_deps=False pipewire-utils
+#dnf install -y --setopt=install_weak_deps=False pipewire-alsa
+#dnf install -y --setopt=install_weak_deps=False pipewire-gstreamer
+#dnf install -y --setopt=install_weak_deps=False pipewire-plugin-libcamera
+#dnf install -y --setopt=install_weak_deps=False pipewire-jack-audio-connection-kit
+#dnf install -y --setopt=install_weak_deps=False pipewire-jack-audio-connection-kit-libs
+#dnf install -y --setopt=install_weak_deps=False pulseaudio-utils
+#dnf install -y --setopt=install_weak_deps=False pulseaudio-libs
+#dnf install -y --setopt=install_weak_deps=False pulseaudio-libs-glib2
+#dnf install -y --setopt=install_weak_deps=False wireplumber
+#dnf install -y --setopt=install_weak_deps=False wireplumber-libs
+#dnf install -y --setopt=install_weak_deps=False alsa-lib
+#dnf install -y --setopt=install_weak_deps=False alsa-ucm
+#dnf install -y --setopt=install_weak_deps=False alsa-utils
+#dnf install -y --setopt=install_weak_deps=False alsa-sof-firmware
 
 
 
@@ -85,7 +85,7 @@ systemctl set-default graphical.target
 
 #rpm -qa | sort
 
-rpm -qa | sort | grep kernel
-rpm -qa | sort | grep gnome
-rpm -qa | sort | grep mesa
-rpm -qa | sort | grep xdg-user-dirs
+#rpm -qa | sort | grep kernel
+#rpm -qa | sort | grep gnome
+#rpm -qa | sort | grep mesa
+#rpm -qa | sort | grep xdg-user-dirs
