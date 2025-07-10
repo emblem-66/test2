@@ -88,17 +88,17 @@ on:
 #---
 
 jobs:
-  build:
+  build-base:
     runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
     env:
       TARGET: emblem-66/test2
-      BASE: base
+    #  BASE: base
     strategy:
       matrix:
-        variant: [desktop, server]
+        variant: [base-bootc, base-arch, base-silverblue, base-sericea, base-fedora-ostree-desktops]
     steps:
     - name: Checkout Push to Registry action
       uses: actions/checkout@v4
@@ -116,17 +116,18 @@ jobs:
       #  remove-large-packages: 'true'
       #  remove-cached-tools: 'true'
       #  remove-swapfile: 'true'
-    - name: Build and Push Base Image
-      run: |
-        podman build -f Containerfile -t ghcr.io/$TARGET:$BASE --target $BASE .
-        podman push ghcr.io/$TARGET:$BASE
+    #- name: Build and Push Base Image
+    #  run: |
+    #    podman build -f Containerfile -t ghcr.io/$TARGET:$BASE --target $BASE .
+    #    podman push ghcr.io/$TARGET:$BASE
     - name: Build and Push Images
       run: |
         podman build -f Containerfile -t ghcr.io/$TARGET:${{ matrix.variant }} --target ${{ matrix.variant }} .
         podman push ghcr.io/$TARGET:${{ matrix.variant }}
 
-  testing:
+  build-desktops:
     runs-on: ubuntu-latest
+    needs: build-base
     permissions:
       contents: read
       packages: write
@@ -134,7 +135,40 @@ jobs:
       TARGET: emblem-66/test2
     strategy:
       matrix:
-        variant: [arch, silverblue, silverblue-base, sericea, fedora-ostree-desktops]
+        variant: [desktop-bootc, desktop-arch, desktop-silverblue, desktop-sericea, desktop-fedora-ostree-desktops]
+    steps:
+    - name: Checkout Push to Registry action
+      uses: actions/checkout@v4
+    - name: Login to ghcr.io
+      shell: bash
+      run: podman login ghcr.io -u emblem-66 -p ${{ secrets.GITHUB_TOKEN }}
+    - name: Maximize build disk space (Only remove unwanted software)
+      uses: AdityaGarg8/remove-unwanted-software@v5
+      with:
+          remove-android: 'true'
+          remove-dotnet: 'true'
+          remove-haskell: 'true'
+          remove-codeql: 'true'
+          remove-docker-images: 'true'
+          remove-large-packages: 'true'
+          remove-cached-tools: 'true'
+          remove-swapfile: 'true'
+    - name: Build and Push Base Image
+      run: |
+        podman build -f Containerfile -t ghcr.io/$TARGET:${{ matrix.variant }} --target ${{ matrix.variant }} .
+        podman push ghcr.io/$TARGET:${{ matrix.variant }}
+
+  build-server:
+    runs-on: ubuntu-latest
+    needs: build-base
+    permissions:
+      contents: read
+      packages: write
+    env:
+      TARGET: emblem-66/test2
+    strategy:
+      matrix:
+        variant: [server-bootc, server-arch, server-silverblue, server-sericea, server-fedora-ostree-desktops]
     steps:
     - name: Checkout Push to Registry action
       uses: actions/checkout@v4
