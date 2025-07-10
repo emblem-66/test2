@@ -98,7 +98,7 @@ jobs:
     #  BASE: base
     strategy:
       matrix:
-        variant: [base-bootc, base-arch, base-silverblue, base-sericea, base-fedora-ostree-desktops]
+        variant: [base-bootc, base-arch, base-silverblue, base-fedora-ostree-desktops]
     steps:
     - name: Checkout Push to Registry action
       uses: actions/checkout@v4
@@ -135,7 +135,7 @@ jobs:
       TARGET: emblem-66/test2
     strategy:
       matrix:
-        variant: [desktop-bootc, desktop-arch, desktop-silverblue, desktop-sericea, desktop-fedora-ostree-desktops]
+        variant: [desktop-bootc, desktop-arch, desktop-silverblue, desktop-fedora-ostree-desktops]
     steps:
     - name: Checkout Push to Registry action
       uses: actions/checkout@v4
@@ -168,7 +168,7 @@ jobs:
       TARGET: emblem-66/test2
     strategy:
       matrix:
-        variant: [server-bootc, server-arch, server-silverblue, server-sericea, server-fedora-ostree-desktops]
+        variant: [server-bootc, server-arch, server-silverblue, server-fedora-ostree-desktops]
     steps:
     - name: Checkout Push to Registry action
       uses: actions/checkout@v4
