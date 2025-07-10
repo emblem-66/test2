@@ -42,27 +42,8 @@ dnf install -y nautilus
 dnf install -y ptyxis
 #dnf install -y adw-gtk3-theme
 #dnf install -y --setopt=install_weak_deps=False tuned tuned-ppd
+dnf install -y langpacks-en
 
-
-
-#dnf install -y --setopt=install_weak_deps=False pipewire
-#dnf install -y --setopt=install_weak_deps=False pipewire-libs
-#dnf install -y --setopt=install_weak_deps=False pipewire-pulseaudio
-#dnf install -y --setopt=install_weak_deps=False pipewire-utils
-#dnf install -y --setopt=install_weak_deps=False pipewire-alsa
-#dnf install -y --setopt=install_weak_deps=False pipewire-gstreamer
-#dnf install -y --setopt=install_weak_deps=False pipewire-plugin-libcamera
-#dnf install -y --setopt=install_weak_deps=False pipewire-jack-audio-connection-kit
-#dnf install -y --setopt=install_weak_deps=False pipewire-jack-audio-connection-kit-libs
-#dnf install -y --setopt=install_weak_deps=False pulseaudio-utils
-#dnf install -y --setopt=install_weak_deps=False pulseaudio-libs
-#dnf install -y --setopt=install_weak_deps=False pulseaudio-libs-glib2
-#dnf install -y --setopt=install_weak_deps=False wireplumber
-#dnf install -y --setopt=install_weak_deps=False wireplumber-libs
-#dnf install -y --setopt=install_weak_deps=False alsa-lib
-#dnf install -y --setopt=install_weak_deps=False alsa-ucm
-#dnf install -y --setopt=install_weak_deps=False alsa-utils
-#dnf install -y --setopt=install_weak_deps=False alsa-sof-firmware
 
 
 
