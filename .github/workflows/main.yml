@@ -119,7 +119,7 @@ jobs:
     - name: Build and Push All Containers (Sequentially)
       run: |
         TARGET=emblem-66/test2
-        TAGS=(base desktop server arch silverblue fedora-ostree-desktops )
+        TAGS=(base desktop server) # arch silverblue fedora-ostree-desktops
         for TAG in "${TAGS[@]}"; do
           podman build -f Containerfile -t ghcr.io/$TARGET:$TAG --target $TAG .
           podman push ghcr.io/$TARGET:$TAG
@@ -174,3 +174,34 @@ jobs:
 #    - name: Push Serverblue Image to ghcr.io
 #      shell: bash
 #      run: podman push ghcr.io/emblem-66/test2:serverblue
+
+
+
+  testing:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    strategy:
+      matrix:
+        variant: [arch, silverblue, fedora-ostree-desktops]
+    steps:
+    - name: Checkout Push to Registry action
+      uses: actions/checkout@v4
+    - name: Login to ghcr.io
+      shell: bash
+      run: podman login ghcr.io -u emblem-66 -p ${{ secrets.GITHUB_TOKEN }}
+    - name: Maximize build disk space (Only remove unwanted software)
+      uses: AdityaGarg8/remove-unwanted-software@v5
+      #with:
+      #    remove-android: 'true'
+      #    remove-dotnet: 'true'
+      #    remove-haskell: 'true'
+      #    remove-codeql: 'true'
+      #    remove-docker-images: 'true'
+      #    remove-large-packages: 'true'
+      #    remove-cached-tools: 'true'
+      #    remove-swapfile: 'true'
+
+    - name: Build and Push Images
+      run: podman build -f Containerfile -t ghcr.io/emblem-66/test2:${{ matrix.variant }} --target ${{ matrix.variant }} . && podman push ghcr.io/emblem-66/test2:${{ matrix.variant }}
