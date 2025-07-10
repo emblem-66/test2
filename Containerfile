@@ -17,7 +17,7 @@ RUN bootc container lint
 
 
 FROM quay.io/fedora/fedora-silverblue:latest AS base-silverblue
-RUN
+RUN bootc container lint
 
 FROM base-silverblue AS desktop-silverblue
 RUN bootc container lint
