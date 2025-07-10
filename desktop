@@ -42,7 +42,7 @@ dnf install -y nautilus
 dnf install -y ptyxis
 #dnf install -y adw-gtk3-theme
 #dnf install -y --setopt=install_weak_deps=False tuned tuned-ppd
-dnf install -y langpacks-en
+
 
 
 
