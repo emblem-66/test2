@@ -6,7 +6,7 @@
 #RUN bootc container lint
 
 FROM quay.io/fedora/fedora-bootc:latest AS base-bootc
-
+RUN bootc container lint
 
 FROM base-bootc AS desktop-bootc
 RUN bootc container lint
