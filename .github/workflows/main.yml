@@ -59,7 +59,7 @@ jobs:
       TARGET: emblem-66/test2
     strategy:
       matrix:
-        variant: [desktop server]
+        variant: [desktop, server]
     steps:
     - name: Checkout Push to Registry action
       uses: actions/checkout@v4
@@ -91,7 +91,7 @@ jobs:
       TARGET: emblem-66/test2
     strategy:
       matrix:
-        variant: [arch silverblue fedora-ostree-desktops]
+        variant: [arch, silverblue, fedora-ostree-desktops]
     steps:
     - name: Checkout Push to Registry action
       uses: actions/checkout@v4
