@@ -8,8 +8,8 @@ install_packages() {
 #-----------------------#
 
 # firewalld
-dnf install -y --nogpgcheck firewalld
-systemctl enable firewalld.service
+#dnf install -y --nogpgcheck firewalld
+#systemctl enable firewalld.service
 # defaults to public zone, 
 # SSH
 dnf install -y --nogpgcheck openssh
@@ -18,8 +18,8 @@ systemctl enable sshd.service
 dnf install -y --nogpgcheck tailscale 
 systemctl enable tailscaled.service
 # Cockpit
-dnf install -y --nogpgcheck cockpit
-systemctl enable cockpit.socket
+#dnf install -y --nogpgcheck cockpit
+#systemctl enable cockpit.socket
 #firewall-cmd --add-service=cockpit
 #firewall-cmd --add-port=9090/tcp
 # needed packages
