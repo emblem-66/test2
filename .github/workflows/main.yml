@@ -134,7 +134,7 @@ jobs:
       TARGET: emblem-66/test2
     strategy:
       matrix:
-        variant: [arch, silverblue, silverblue-base, fedora-ostree-desktops]
+        variant: [arch, silverblue, silverblue-base, sericea, fedora-ostree-desktops]
     steps:
     - name: Checkout Push to Registry action
       uses: actions/checkout@v4
