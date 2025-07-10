@@ -1,0 +1,4 @@
+#!/bin/bash
+set -ouexv pipefail
+
+rpm -qa | sort
