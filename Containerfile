@@ -61,7 +61,7 @@ RUN curl -s https://raw.githubusercontent.com/Emblem-66/test2/refs/heads/main/Bu
 RUN bootc container lint
 
 FROM base-sericea AS desktop-sericea
-RUN curl -s https://raw.githubusercontent.com/Emblem-66/test2/refs/heads/main/Buildfile | bash \
+RUN curl -s https://raw.githubusercontent.com/Emblem-66/test2/refs/heads/main/Buildfile --gnome | bash \
  && dnf clean all \
  && rm -rf /tmp/* /var/* \
  && rpm-ostree cleanup -m \
