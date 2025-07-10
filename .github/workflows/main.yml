@@ -18,15 +18,15 @@ on:
 
 jobs:
   build-base:
-	runs-on: ubuntu-latest
+    runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
-	env:
-		TARGET: emblem-66/test2
+    env:
+      TARGET: emblem-66/test2
     strategy:
       matrix:
-		variant: [base]
+        variant: [base]
     steps:
     - name: Checkout Push to Registry action
       uses: actions/checkout@v4
@@ -36,27 +36,27 @@ jobs:
     - name: Maximize build disk space (Only remove unwanted software)
       uses: AdityaGarg8/remove-unwanted-software@v5
       with:
-          remove-android: 'true'
-          remove-dotnet: 'true'
-          remove-haskell: 'true'
-          remove-codeql: 'true'
-          remove-docker-images: 'true'
-          remove-large-packages: 'true'
-          remove-cached-tools: 'true'
-          remove-swapfile: 'true'
+        remove-android: 'true'
+        remove-dotnet: 'true'
+        remove-haskell: 'true'
+        remove-codeql: 'true'
+        remove-docker-images: 'true'
+        remove-large-packages: 'true'
+        remove-cached-tools: 'true'
+        remove-swapfile: 'true'
     - name: Build and Push Base Image
       run: |
-      	podman build -f Containerfile -t ghcr.io/$TARGET:${{ matrix.variant }} --target ${{ matrix.variant }} .
-      	podman push ghcr.io/$TARGET:${{ matrix.variant }}
+        podman build -f Containerfile -t ghcr.io/$TARGET:${{ matrix.variant }} --target ${{ matrix.variant }} .
+        podman push ghcr.io/$TARGET:${{ matrix.variant }}
 
   build-on-base:
-  	needs: build-base
-	runs-on: ubuntu-latest
+    needs: build-base
+    runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
-	env:
-		TARGET: emblem-66/test2
+    env:
+      TARGET: emblem-66/test2
     strategy:
       matrix:
         variant: [desktop server]
@@ -79,18 +79,17 @@ jobs:
           remove-swapfile: 'true'
     - name: Build and Push Base Image
       run: |
-      	#TARGET=emblem-66/test2
-      	podman build -f Containerfile -t ghcr.io/$TARGET:${{ matrix.variant }} --target ${{ matrix.variant }} .
-      	podman push ghcr.io/$TARGET:${{ matrix.variant }}
+        podman build -f Containerfile -t ghcr.io/$TARGET:${{ matrix.variant }} --target ${{ matrix.variant }} .
+        podman push ghcr.io/$TARGET:${{ matrix.variant }}
 
   testing:
-	runs-on: ubuntu-latest
+    runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
-    	env:
-		TARGET: emblem-66/test2
-	strategy:
+    env:
+      TARGET: emblem-66/test2
+    strategy:
       matrix:
         variant: [arch silverblue fedora-ostree-desktops]
     steps:
@@ -112,6 +111,6 @@ jobs:
           remove-swapfile: 'true'
     - name: Build and Push Base Image
       run: |
-      	podman build -f Containerfile -t ghcr.io/$TARGET:${{ matrix.variant }} --target ${{ matrix.variant }} .
-      	podman push ghcr.io/$TARGET:${{ matrix.variant }}
+        podman build -f Containerfile -t ghcr.io/$TARGET:${{ matrix.variant }} --target ${{ matrix.variant }} .
+        podman push ghcr.io/$TARGET:${{ matrix.variant }}
 
