@@ -5,6 +5,8 @@
 # && ostree container commit
 #RUN bootc container lint
 
+
+
 FROM quay.io/fedora/fedora-bootc:latest AS base-bootc
 RUN bootc container lint
 
@@ -23,17 +25,6 @@ FROM base-silverblue AS desktop-silverblue
 RUN bootc container lint
 
 FROM base-silverblue AS server-silverblue
-RUN bootc container lint
-
-
-
-FROM quay.io/fedora/fedora-sericea:latest AS base-sericea
-RUN bootc container lint
-
-FROM base-sericea AS desktop-sericea
-RUN bootc container lint
-
-FROM base-sericea AS server-sericea
 RUN bootc container lint
 
 
