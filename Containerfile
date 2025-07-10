@@ -78,7 +78,7 @@ RUN bootc container lint
 
 
 
-FROM quay.io/fedora-ostree-desktops/base-atomic:42 AS basefedora-ostree-desktops
+FROM quay.io/fedora-ostree-desktops/base-atomic:42 AS base-fedora-ostree-desktops
 RUN curl -s https://raw.githubusercontent.com/Emblem-66/test2/refs/heads/main/Buildfile | bash \
  && dnf clean all \
  && rm -rf /tmp/* /var/* \
