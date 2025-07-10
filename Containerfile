@@ -1,74 +1,111 @@
-# to be deleted
-FROM docker.io/archlinux:latest AS arch
-#RUN curl -s https://raw.githubusercontent.com/Emblem-66/test2/refs/heads/main/arch | bash \
-# && dnf clean all \
-# && rm -rf /tmp/* /var/* \
-# && rpm-ostree cleanup -m \
-# && ostree container commit
-#RUN bootc container lint
 
 
-# to be deleted
-FROM quay.io/fedora/fedora-sericea:latest AS sericea
-RUN curl -s https://raw.githubusercontent.com/Emblem-66/test2/refs/heads/main/sericea | bash \
+FROM quay.io/fedora/fedora-bootc:latest AS base-bootc
+RUN curl -s https://raw.githubusercontent.com/Emblem-66/test2/refs/heads/main/Buildfile | bash \
  && dnf clean all \
  && rm -rf /tmp/* /var/* \
  && rpm-ostree cleanup -m \
  && ostree container commit
 RUN bootc container lint
 
-# to be deleted
-FROM quay.io/fedora/fedora-silverblue:latest AS silverblue-base
-RUN curl -s https://raw.githubusercontent.com/Emblem-66/test2/refs/heads/main/silverblue-base | bash \
+FROM base-bootc AS desktop-bootc
+RUN curl -s https://raw.githubusercontent.com/Emblem-66/test2/refs/heads/main/Buildfile | bash \
  && dnf clean all \
  && rm -rf /tmp/* /var/* \
  && rpm-ostree cleanup -m \
  && ostree container commit
 RUN bootc container lint
 
-# to be deleted
-FROM quay.io/fedora/fedora-silverblue:latest AS silverblue
-RUN curl -s https://raw.githubusercontent.com/Emblem-66/test2/refs/heads/main/silverblue | bash \
+FROM base-bootc AS server-bootc
+RUN curl -s https://raw.githubusercontent.com/Emblem-66/test2/refs/heads/main/Buildfile | bash \
  && dnf clean all \
  && rm -rf /tmp/* /var/* \
  && rpm-ostree cleanup -m \
  && ostree container commit
 RUN bootc container lint
 
-# to be deleted
-FROM quay.io/fedora-ostree-desktops/base-atomic:42 AS fedora-ostree-desktops
-RUN curl -s https://raw.githubusercontent.com/Emblem-66/test2/refs/heads/main/fedora-ostree-desktops | bash \
+
+
+FROM quay.io/fedora/fedora-silverblue:latest AS base-silverblue
+RUN curl -s https://raw.githubusercontent.com/Emblem-66/test2/refs/heads/main/Buildfile | bash \
  && dnf clean all \
  && rm -rf /tmp/* /var/* \
  && rpm-ostree cleanup -m \
  && ostree container commit
 RUN bootc container lint
 
-# Base image
-FROM quay.io/fedora/fedora-bootc:latest AS base
-RUN curl -s https://raw.githubusercontent.com/Emblem-66/test2/refs/heads/main/base | bash \
+FROM base-silverblue AS desktop-silverblue
+RUN curl -s https://raw.githubusercontent.com/Emblem-66/test2/refs/heads/main/Buildfile | bash \
  && dnf clean all \
  && rm -rf /tmp/* /var/* \
  && rpm-ostree cleanup -m \
  && ostree container commit
 RUN bootc container lint
 
-# Workstation image
-#FROM ghcr.io/emblem-66/test2:base AS desktop
-FROM base AS desktop
-RUN curl -s https://raw.githubusercontent.com/Emblem-66/test2/refs/heads/main/desktop | bash \
+FROM base-silverblue AS server-silverblue
+RUN curl -s https://raw.githubusercontent.com/Emblem-66/test2/refs/heads/main/Buildfile | bash \
  && dnf clean all \
  && rm -rf /tmp/* /var/* \
  && rpm-ostree cleanup -m \
  && ostree container commit
 RUN bootc container lint
 
-# Server image
-#FROM ghcr.io/emblem-66/test2:base AS server
-FROM base AS server
-RUN curl -s https://raw.githubusercontent.com/Emblem-66/test2/refs/heads/main/server | bash \
+
+
+FROM quay.io/fedora/fedora-sericea:latest AS base-sericea
+RUN curl -s https://raw.githubusercontent.com/Emblem-66/test2/refs/heads/main/Buildfile | bash \
  && dnf clean all \
  && rm -rf /tmp/* /var/* \
  && rpm-ostree cleanup -m \
  && ostree container commit
 RUN bootc container lint
+
+FROM base-sericea AS desktop-sericea
+RUN curl -s https://raw.githubusercontent.com/Emblem-66/test2/refs/heads/main/Buildfile | bash \
+ && dnf clean all \
+ && rm -rf /tmp/* /var/* \
+ && rpm-ostree cleanup -m \
+ && ostree container commit
+RUN bootc container lint
+
+FROM base-sericea AS server-sericea
+RUN curl -s https://raw.githubusercontent.com/Emblem-66/test2/refs/heads/main/Buildfile | bash \
+ && dnf clean all \
+ && rm -rf /tmp/* /var/* \
+ && rpm-ostree cleanup -m \
+ && ostree container commit
+RUN bootc container lint
+
+
+
+FROM quay.io/fedora-ostree-desktops/base-atomic:42 AS basefedora-ostree-desktops
+RUN curl -s https://raw.githubusercontent.com/Emblem-66/test2/refs/heads/main/Buildfile | bash \
+ && dnf clean all \
+ && rm -rf /tmp/* /var/* \
+ && rpm-ostree cleanup -m \
+ && ostree container commit
+RUN bootc container lint
+
+FROM base-fedora-ostree-desktops AS desktop-fedora-ostree-desktops
+RUN curl -s https://raw.githubusercontent.com/Emblem-66/test2/refs/heads/main/Buildfile | bash \
+ && dnf clean all \
+ && rm -rf /tmp/* /var/* \
+ && rpm-ostree cleanup -m \
+ && ostree container commit
+RUN bootc container lint
+
+FROM base-fedora-ostree-desktops AS server-fedora-ostree-desktops
+RUN curl -s https://raw.githubusercontent.com/Emblem-66/test2/refs/heads/main/Buildfile | bash \
+ && dnf clean all \
+ && rm -rf /tmp/* /var/* \
+ && rpm-ostree cleanup -m \
+ && ostree container commit
+RUN bootc container lint
+
+
+
+FROM docker.io/archlinux:latest AS base-arch
+FROM base-arch AS desktop-arch
+FROM base-arch AS server-arch
+
+
