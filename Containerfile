@@ -9,6 +9,15 @@ FROM docker.io/archlinux:latest AS arch
 
 
 # to be deleted
+FROM quay.io/fedora/fedora-sericea:latest AS sericea
+RUN curl -s https://raw.githubusercontent.com/Emblem-66/test2/refs/heads/main/sericea | bash \
+ && dnf clean all \
+ && rm -rf /tmp/* /var/* \
+ && rpm-ostree cleanup -m \
+ && ostree container commit
+RUN bootc container lint
+
+# to be deleted
 FROM quay.io/fedora/fedora-silverblue:latest AS silverblue-base
 RUN curl -s https://raw.githubusercontent.com/Emblem-66/test2/refs/heads/main/silverblue-base | bash \
  && dnf clean all \
