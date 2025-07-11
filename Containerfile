@@ -8,34 +8,61 @@
 
 
 FROM quay.io/fedora/fedora-bootc:latest AS base-bootc
+RUN <<EOF
+rpm -qa | sort
+EOF
 RUN bootc container lint
 
 FROM base-bootc AS desktop-bootc
+RUN <<EOF
+rpm -qa | sort
+EOF
 RUN bootc container lint
 
 FROM base-bootc AS server-bootc
+RUN <<EOF
+rpm -qa | sort
+EOF
 RUN bootc container lint
 
 
 
 FROM quay.io/fedora/fedora-silverblue:latest AS base-silverblue
+RUN <<EOF
+rpm -qa | sort
+EOF
 RUN bootc container lint
 
 FROM base-silverblue AS desktop-silverblue
+RUN <<EOF
+rpm -qa | sort
+EOF
 RUN bootc container lint
 
 FROM base-silverblue AS server-silverblue
+RUN <<EOF
+rpm -qa | sort
+EOF
 RUN bootc container lint
 
 
 
 FROM quay.io/fedora-ostree-desktops/base-atomic:42 AS base-fedora-ostree-desktops
+RUN <<EOF
+rpm -qa | sort
+EOF
 RUN bootc container lint
 
 FROM base-fedora-ostree-desktops AS desktop-fedora-ostree-desktops
+RUN <<EOF
+rpm -qa | sort
+EOF
 RUN bootc container lint
 
 FROM base-fedora-ostree-desktops AS server-fedora-ostree-desktops
+RUN <<EOF
+rpm -qa | sort
+EOF
 RUN bootc container lint
 
 
