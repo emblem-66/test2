@@ -102,12 +102,14 @@ jobs:
     steps:
     - name: Checkout Push to Registry action
       uses: actions/checkout@v4
-    - name: Login to ghcr.io
+    - name: Build Image
       shell: bash
-      run: podman login ghcr.io -u emblem-66 -p ${{ secrets.GITHUB_TOKEN }}
-    - name: Build and Push Images
       run: |
         podman build -f Containerfile -t ghcr.io/$TARGET:${{ matrix.variant }} --target ${{ matrix.variant }} .
+    - name: Login and Push
+      shell: bash
+      run: |
+        podman login ghcr.io -u emblem-66 -p ${{ secrets.GITHUB_TOKEN }}
         podman push ghcr.io/$TARGET:${{ matrix.variant }}
 
   build-desktops:
@@ -124,11 +126,11 @@ jobs:
     steps:
     - name: Checkout Push to Registry action
       uses: actions/checkout@v4
-    - name: Build and Push Base Image
+    - name: Build Image
       shell: bash
       run: |
         podman build -f Containerfile -t ghcr.io/$TARGET:${{ matrix.variant }} --target ${{ matrix.variant }} .
-    - name: Login to ghcr.io
+    - name: Login and Push
       shell: bash
       run: |
         podman login ghcr.io -u emblem-66 -p ${{ secrets.GITHUB_TOKEN }}
