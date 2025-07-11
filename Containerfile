@@ -1,5 +1,5 @@
 # base
-# && dnf install --assumeyes langpacks-en firewalld openssh tailscale git curl wget rsync \
+# && dnf install --assumeyes dnf5-plugins langpacks-en firewalld openssh tailscale git curl wget rsync \
 # && systemctl enable firewalld.service sshd.service tailscaled.service  \
 #
 #
@@ -22,7 +22,7 @@
 FROM quay.io/fedora/fedora-bootc:latest AS base-bootc
 RUN uname -r \
  && rpm -qa | sort \
- && dnf install --assumeyes langpacks-en firewalld openssh tailscale git curl wget rsync \
+ && dnf install --assumeyes dnf5-plugins langpacks-en firewalld openssh tailscale git curl wget rsync \
  && systemctl enable firewalld.service sshd.service tailscaled.service \
  && dnf clean all \
  && rm -rf /tmp/* /var/* \
@@ -57,7 +57,7 @@ RUN uname -r \
 FROM quay.io/fedora/fedora-silverblue:latest AS base-silverblue
 RUN uname -r \
  && rpm -qa | sort \
- && dnf install --assumeyes langpacks-en firewalld openssh tailscale git curl wget rsync \
+ && dnf install --assumeyes dnf5-plugins langpacks-en firewalld openssh tailscale git curl wget rsync \
  && systemctl enable firewalld.service sshd.service tailscaled.service  \
  && dnf clean all \
  && rm -rf /tmp/* /var/* \
@@ -92,7 +92,7 @@ RUN uname -r \
 FROM quay.io/fedora-ostree-desktops/base-atomic:42 AS base-fedora-ostree-desktops
 RUN uname -r \
  && rpm -qa | sort \
- && dnf install --assumeyes langpacks-en firewalld openssh tailscale git curl wget rsync \
+ && dnf install --assumeyes dnf5-plugins langpacks-en firewalld openssh tailscale git curl wget rsync \
  && systemctl enable firewalld.service sshd.service tailscaled.service  \
  && dnf clean all \
  && rm -rf /tmp/* /var/* \
