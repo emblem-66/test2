@@ -41,7 +41,7 @@ EOFRUN bootc container lint
 
 
 FROM quay.io/fedora/fedora-silverblue:latest AS base-silverblue
-RUN bash <<EOF
+RUN <<EOF
 rpm -qa | sort
 dnf clean all
 rm -rf /tmp/* /var/*
