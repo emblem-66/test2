@@ -23,7 +23,8 @@ FROM quay.io/fedora/fedora-bootc:latest AS base-bootc
 RUN uname -r \
  && rpm -qa | sort \
  && dnf install --assumeyes langpacks-en firewalld openssh tailscale git curl wget rsync \
- && systemctl enable firewalld.service sshd.service tailscaled.service  \ && dnf clean all \
+ && systemctl enable firewalld.service sshd.service tailscaled.service \
+ && dnf clean all \
  && rm -rf /tmp/* /var/* \
  && rpm-ostree cleanup -m \
  && ostree container commit && bootc container lint
