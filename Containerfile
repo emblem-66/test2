@@ -5,7 +5,7 @@
 #
 #
 # desktop
-# && dnf install --assumeyes flatpak gdm gnome-shell nautilus ptyxis adw-gtk3-theme \
+# && dnf install --assumeyes flatpak gdm gnome-shell nautilus ptyxis adw-gtk3-theme cups hplip \
 # && systemctl set-default graphical.target \
 # && git clone https://github.com/somepaulo/MoreWaita.git /usr/share/icons/MoreWaita/ \
 #
@@ -32,7 +32,7 @@ RUN uname -r \
 FROM base-bootc AS desktop-bootc
 RUN uname -r \
  && rpm -qa | sort \
- && dnf install --assumeyes flatpak gdm gnome-shell nautilus ptyxis adw-gtk3-theme \
+ && dnf install --assumeyes flatpak gdm gnome-shell nautilus ptyxis adw-gtk3-theme cups hplip \
  && systemctl set-default graphical.target \
  && git clone https://github.com/somepaulo/MoreWaita.git /usr/share/icons/MoreWaita/ \
  && dnf clean all \
@@ -67,7 +67,7 @@ RUN uname -r \
 FROM base-silverblue AS desktop-silverblue
 RUN uname -r \
  && rpm -qa | sort \
- && dnf install --assumeyes flatpak gdm gnome-shell nautilus ptyxis adw-gtk3-theme \
+ && dnf install --assumeyes flatpak gdm gnome-shell nautilus ptyxis adw-gtk3-theme cups hplip \
  && systemctl set-default graphical.target \
  && git clone https://github.com/somepaulo/MoreWaita.git /usr/share/icons/MoreWaita/ \
  && dnf clean all \
@@ -102,7 +102,7 @@ RUN uname -r \
 FROM base-fedora-ostree-desktops AS desktop-fedora-ostree-desktops
 RUN uname -r \
  && rpm -qa | sort \
- && dnf install --assumeyes flatpak gdm gnome-shell nautilus ptyxis adw-gtk3-theme \
+ && dnf install --assumeyes flatpak gdm gnome-shell nautilus ptyxis adw-gtk3-theme cups hplip \
  && systemctl set-default graphical.target \
  && git clone https://github.com/somepaulo/MoreWaita.git /usr/share/icons/MoreWaita/ \
  && dnf clean all \
