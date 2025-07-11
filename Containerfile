@@ -30,7 +30,7 @@ RUN uname -r \
  && dnf install --assumeyes flatpak gdm gnome-shell nautilus ptyxis adw-gtk3-theme cups hplip \
  && systemctl set-default graphical.target \
  && git clone https://github.com/somepaulo/MoreWaita.git /usr/share/icons/MoreWaita/ \
- && dnf install plymouth-theme-* \
+ && dnf install -y plymouth-theme-* \
  && plymouth-set-default-theme hot-dog -R \
  && dnf clean all \
  && rm -rf /tmp/* /var/* \
@@ -67,7 +67,7 @@ RUN uname -r \
  && dnf install --assumeyes flatpak gdm gnome-shell nautilus ptyxis adw-gtk3-theme cups hplip \
  && systemctl set-default graphical.target \
  && git clone https://github.com/somepaulo/MoreWaita.git /usr/share/icons/MoreWaita/ \
- && dnf install plymouth-theme-* \
+ && dnf install -y plymouth-theme-* \
  && plymouth-set-default-theme hot-dog -R \
  && dnf clean all \
  && rm -rf /tmp/* /var/* \
@@ -104,7 +104,7 @@ RUN uname -r \
  && dnf install --assumeyes flatpak gdm gnome-shell nautilus ptyxis adw-gtk3-theme cups hplip \
  && systemctl set-default graphical.target \
  && git clone https://github.com/somepaulo/MoreWaita.git /usr/share/icons/MoreWaita/ \
- && dnf install plymouth-theme-* \
+ && dnf install -y plymouth-theme-* \
  && plymouth-set-default-theme hot-dog -R \
  && dnf clean all \
  && rm -rf /tmp/* /var/* \
