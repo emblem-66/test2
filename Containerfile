@@ -5,10 +5,10 @@
 # && ostree container commit
 #RUN bootc container lint
 
-dnf clean all
-rm -rf /tmp/* /var/*
-rpm-ostree cleanup -m
-ostree container commit
+#dnf clean all
+#rm -rf /tmp/* /var/*
+#rpm-ostree cleanup -m
+#ostree container commit
 
 FROM quay.io/fedora/fedora-bootc:latest AS base-bootc
 RUN bash <<EOF
