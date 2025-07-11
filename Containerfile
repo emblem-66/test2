@@ -125,6 +125,17 @@ RUN uname -r \
 
 
 FROM docker.io/archlinux:latest AS base-arch
+RUN uname -r \
+ && cat /etc/pacman.conf \
+ && pacman -Qe
+
 FROM base-arch AS desktop-arch
+RUN uname -r \
+ && cat /etc/pacman.conf \
+ && pacman -Qe
+
 FROM base-arch AS server-arch
+RUN uname -r \
+ && cat /etc/pacman.conf \
+ && pacman -Qe
 
