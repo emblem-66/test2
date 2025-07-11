@@ -16,9 +16,8 @@ rpm -qa | sort
 dnf clean all
 rm -rf /tmp/* /var/*
 rpm-ostree cleanup -m
-ostree container commit
 EOF
-RUN bootc container lint
+RUN ostree container commit && bootc container lint
 
 FROM base-bootc AS desktop-bootc
 RUN bash <<EOF
