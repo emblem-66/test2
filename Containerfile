@@ -2,21 +2,16 @@
 # && dnf install --assumeyes dnf5-plugins langpacks-en firewalld openssh tailscale git curl wget rsync \
 # && systemctl enable firewalld.service sshd.service tailscaled.service  \
 #
-#
-#
 # desktop
 # && dnf install --assumeyes flatpak gdm gnome-shell nautilus ptyxis adw-gtk3-theme cups hplip \
 # && systemctl set-default graphical.target \
 # && git clone https://github.com/somepaulo/MoreWaita.git /usr/share/icons/MoreWaita/ \
-#
-#
 #
 # server
 # && dnf install -y cockpit podman podman-compose toolbox distrobox \ 
 # && dnf config-manager addrepo --from-repofile="https://download.docker.com/linux/fedora/docker-ce.repo" \
 # && dnf install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin \
 # && systemctl enable cockpit.socket docker \
-#
 #
 
 FROM quay.io/fedora/fedora-bootc:latest AS base-bootc
@@ -35,6 +30,8 @@ RUN uname -r \
  && dnf install --assumeyes flatpak gdm gnome-shell nautilus ptyxis adw-gtk3-theme cups hplip \
  && systemctl set-default graphical.target \
  && git clone https://github.com/somepaulo/MoreWaita.git /usr/share/icons/MoreWaita/ \
+ && dnf install plymouth-theme-* \
+ && plymouth-set-default-theme hot-dog -R \
  && dnf clean all \
  && rm -rf /tmp/* /var/* \
  && rpm-ostree cleanup -m \
@@ -70,6 +67,8 @@ RUN uname -r \
  && dnf install --assumeyes flatpak gdm gnome-shell nautilus ptyxis adw-gtk3-theme cups hplip \
  && systemctl set-default graphical.target \
  && git clone https://github.com/somepaulo/MoreWaita.git /usr/share/icons/MoreWaita/ \
+ && dnf install plymouth-theme-* \
+ && plymouth-set-default-theme hot-dog -R \
  && dnf clean all \
  && rm -rf /tmp/* /var/* \
  && rpm-ostree cleanup -m \
@@ -105,6 +104,8 @@ RUN uname -r \
  && dnf install --assumeyes flatpak gdm gnome-shell nautilus ptyxis adw-gtk3-theme cups hplip \
  && systemctl set-default graphical.target \
  && git clone https://github.com/somepaulo/MoreWaita.git /usr/share/icons/MoreWaita/ \
+ && dnf install plymouth-theme-* \
+ && plymouth-set-default-theme hot-dog -R \
  && dnf clean all \
  && rm -rf /tmp/* /var/* \
  && rpm-ostree cleanup -m \
