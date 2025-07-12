@@ -21,6 +21,7 @@ RUN echo "Starting" \
  && dnf group install -y core base-graphical \
  && dnf install -y dnf5-plugins langpacks-en firewalld openssh tailscale git curl wget rsync \
  && systemctl enable firewalld.service sshd.service tailscaled.service \
+ && systemctl mask remount-fs.service \
  && dnf clean all \
  && rpm-ostree cleanup -m \
  && ostree container commit \
