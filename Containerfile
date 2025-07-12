@@ -16,6 +16,7 @@
 
 FROM quay.io/fedora/fedora-bootc:latest AS bootc
 RUN echo "Starting" \
+ && uname -r \
  && rpm -qa | sort \
  && dnf group install -y core base-graphical \
  && dnf install -y dnf5-plugins langpacks-en firewalld openssh tailscale git curl wget rsync \
