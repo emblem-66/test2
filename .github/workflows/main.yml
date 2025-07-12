@@ -23,7 +23,7 @@ jobs:
       contents: read
       packages: write
     env:
-      TARGET: ${{ github.actor }}/image
+      TARGET: image
     #  BASE: base
     strategy:
       matrix:
@@ -52,20 +52,20 @@ jobs:
       id: build-base
       shell: bash
       run: |
-        podman build -f Containerfile -t ghcr.io/${{ env.TARGET }}:${{ matrix.variant }} --target ${{ matrix.base }} .
-        podman push ghcr.io/${{ env.TARGET }}:${{ matrix.base }}
+        podman build -f Containerfile -t ghcr.io/${{ github.actor }}/${{ env.TARGET }}:${{ matrix.variant }} --target ${{ matrix.base }} .
+        podman push ghcr.io/${{ github.actor }}/${{ env.TARGET }}:${{ matrix.base }}
     - name: Build Images
       if: steps.build-base.outcome == 'success'
       shell: bash
       run: |
-        podman build -f Containerfile -t ghcr.io/${{ env.TARGET }}:${{ matrix.variant }} --target ${{ matrix.desktop }} .
-        podman push ghcr.io/${{ env.TARGET }}:${{ matrix.desktop }}
+        podman build -f Containerfile -t ghcr.io/${{ github.actor }}/${{ env.TARGET }}:${{ matrix.variant }} --target ${{ matrix.desktop }} .
+        podman push ghcr.io/${{ github.actor }}/${{ env.TARGET }}:${{ matrix.desktop }}
     - name: Build Images
       if: steps.build-base.outcome == 'success'
       shell: bash
       run: |
-        podman build -f Containerfile -t ghcr.io/${{ env.TARGET }}:${{ matrix.variant }} --target ${{ matrix.server }} .
-        podman push ghcr.io/${{ env.TARGET }}:${{ matrix.server }}
+        podman build -f Containerfile -t ghcr.io/${{ github.actor }}/${{ env.TARGET }}:${{ matrix.variant }} --target ${{ matrix.server }} .
+        podman push ghcr.io/${{ github.actor }}/${{ env.TARGET }}:${{ matrix.server }}
 
 
 
