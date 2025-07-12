@@ -83,8 +83,6 @@ on:
 #        podman build -f Containerfile -t ghcr.io/$TARGET:${{ matrix.variant }} --target ${{ matrix.variant }} .
 #        podman push ghcr.io/$TARGET:${{ matrix.variant }}
 
-
-
 #---
 
 jobs:
@@ -94,7 +92,7 @@ jobs:
       contents: read
       packages: write
     env:
-      TARGET: emblem-66/test2
+      TARGET: ${{ github.actor }}/image
     #  BASE: base
     strategy:
       matrix:
@@ -105,12 +103,12 @@ jobs:
     - name: Build Image
       shell: bash
       run: |
-        podman build -f Containerfile -t ghcr.io/$TARGET:${{ matrix.variant }} --target ${{ matrix.variant }} .
+        podman build -f Containerfile -t ghcr.io/${{ env.TARGET }}:${{ matrix.variant }} --target ${{ matrix.variant }} .
     - name: Login and Push
       shell: bash
       run: |
-        podman login ghcr.io -u emblem-66 -p ${{ secrets.GITHUB_TOKEN }}
-        podman push ghcr.io/$TARGET:${{ matrix.variant }}
+        podman login ghcr.io -u ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }}
+        podman push ghcr.io/${{ env.TARGET }}:${{ matrix.variant }}
 
   build-desktops:
     runs-on: ubuntu-latest
@@ -119,7 +117,7 @@ jobs:
       contents: read
       packages: write
     env:
-      TARGET: emblem-66/test2
+      TARGET: emblem-66/image
     strategy:
       matrix:
         variant: [desktop-bootc, desktop-silverblue, desktop-fedora-ostree-desktops]
@@ -129,12 +127,12 @@ jobs:
     - name: Build Image
       shell: bash
       run: |
-        podman build -f Containerfile -t ghcr.io/$TARGET:${{ matrix.variant }} --target ${{ matrix.variant }} .
+        podman build -f Containerfile -t ghcr.io/${{ env.TARGET }}:${{ matrix.variant }} --target ${{ matrix.variant }} .
     - name: Login and Push
       shell: bash
       run: |
-        podman login ghcr.io -u emblem-66 -p ${{ secrets.GITHUB_TOKEN }}
-        podman push ghcr.io/$TARGET:${{ matrix.variant }}
+        podman login ghcr.io -u ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }}
+        podman push ghcr.io/${{ env.TARGET }}:${{ matrix.variant }}
 
   build-server:
     runs-on: ubuntu-latest
@@ -143,7 +141,7 @@ jobs:
       contents: read
       packages: write
     env:
-      TARGET: emblem-66/test2
+      TARGET: emblem-66/image
     strategy:
       matrix:
         variant: [server-bootc, server-silverblue, server-fedora-ostree-desktops]
@@ -153,6 +151,6 @@ jobs:
     - name: Login Build and Push Server Images to ghcr.io
       shell: bash
       run: |
-        podman login ghcr.io -u emblem-66 -p ${{ secrets.GITHUB_TOKEN }}
-        podman build -f Containerfile -t ghcr.io/$TARGET:${{ matrix.variant }} --target ${{ matrix.variant }} .
-        podman push ghcr.io/$TARGET:${{ matrix.variant }}
+        podman login ghcr.io -u ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }}
+        podman build -f Containerfile -t ghcr.io/${{ env.TARGET }}:${{ matrix.variant }} --target ${{ matrix.variant }} .
+        podman push ghcr.io/${{ env.TARGET }}:${{ matrix.variant }}
