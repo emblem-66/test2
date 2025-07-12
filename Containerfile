@@ -22,7 +22,6 @@ RUN echo "Starting" \
  && dnf install -y dnf5-plugins langpacks-en firewalld openssh tailscale git curl wget rsync \
  && systemctl enable firewalld.service sshd.service tailscaled.service \
  && dnf clean all \
- && rm -rf /tmp/* /var/* \
  && rpm-ostree cleanup -m \
  && ostree container commit \
  && bootc container lint \
@@ -34,7 +33,6 @@ RUN echo "Starting" \
  && dnf install -y dnf5-plugins langpacks-en firewalld openssh tailscale git curl wget rsync \
  && systemctl enable firewalld.service sshd.service tailscaled.service \
  && dnf clean all \
- && rm -rf /tmp/* /var/* \
  && rpm-ostree cleanup -m \
  && ostree container commit \
  && bootc container lint \
@@ -47,7 +45,6 @@ RUN uname -r \
  && systemctl set-default graphical.target \
  && git clone https://github.com/somepaulo/MoreWaita.git /usr/share/icons/MoreWaita/ \
  && dnf clean all \
- && rm -rf /tmp/* /var/* \
  && rpm-ostree cleanup -m \
  && ostree container commit && bootc container lint
 
@@ -59,7 +56,6 @@ RUN uname -r \
  && dnf install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin \
  && systemctl enable cockpit.socket docker \
  && dnf clean all \
- && rm -rf /tmp/* /var/* \
  && rpm-ostree cleanup -m \
  && ostree container commit && bootc container lint
 
