@@ -18,9 +18,10 @@ FROM quay.io/fedora/fedora-bootc:latest AS bootc
 RUN echo "Starting" \
  && uname -r \
  && rpm -qa | sort \
+ && dnf install -y dnf5-plugins \
  && dnf group install -y core base-graphical \
- && dnf install -y dnf5-plugins langpacks-en firewalld openssh tailscale git curl wget rsync \
- && systemctl enable firewalld.service sshd.service tailscaled.service \
+ && dnf install -y langpacks-en firewalld openssh tailscale git curl wget rsync \
+# && systemctl enable firewalld.service sshd.service tailscaled.service \
  && systemctl mask remount-fs.service \
  && dnf clean all \
  && rpm-ostree cleanup -m \
