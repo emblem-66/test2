@@ -27,9 +27,9 @@ jobs:
     #  BASE: base
     strategy:
       matrix:
-        base: [base-bootc] #, base-silverblue, base-fedora-ostree-desktops]
-        desktop: [desktop-bootc] #, desktop-silverblue, desktop-fedora-ostree-desktops]
-        server: [server-bootc ] #, server-silverblue, server-fedora-ostree-desktops]
+        base: [base-bootc, base-silverblue, base-fedora-ostree-desktops]
+        desktop: [desktop-bootc, desktop-silverblue, desktop-fedora-ostree-desktops]
+        server: [server-bootc , server-silverblue, server-fedora-ostree-desktops]
     steps:
     - name: Checkout Push to Registry action
       uses: actions/checkout@v4
@@ -51,19 +51,19 @@ jobs:
       run: |
         podman login ghcr.io -u ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }}
     - name: Build Images
-      id: build-base
+      #id: build-base
       shell: bash
       run: |
         podman build -f Containerfile -t ghcr.io/${{ github.actor }}/${{ github.event.repository.name }}:${{ matrix.base }} --target ${{ matrix.base }} .
         podman push ghcr.io/${{ github.actor }}/${{ github.event.repository.name }}:${{ matrix.base }}
     - name: Build Images
-      if: steps.build-base.outcome == 'success'
+      #if: steps.build-base.outcome == 'success'
       shell: bash
       run: |
         podman build -f Containerfile -t ghcr.io/${{ github.actor }}/${{ github.event.repository.name }}:${{ matrix.desktop }} --target ${{ matrix.desktop }} .
         podman push ghcr.io/${{ github.actor }}/${{ github.event.repository.name }}:${{ matrix.desktop }}
     - name: Build Images
-      if: steps.build-base.outcome == 'success'
+      #if: steps.build-base.outcome == 'success'
       shell: bash
       run: |
         podman build -f Containerfile -t ghcr.io/${{ github.actor }}/${{ github.event.repository.name }}:${{ matrix.server }} --target ${{ matrix.server }} .
