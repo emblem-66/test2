@@ -1,9 +1,16 @@
 FROM quay.io/fedora/fedora-bootc:latest AS bootc
-RUN rpm -qa | sort 
-RUN dnf install -y dnf5-plugins 
-RUN dnf group install -y core 
-RUN dnf group install -y base-graphical 
-RUN dnf install -y langpacks-en firewalld openssh tailscale git curl wget rsync 
+RUN whoami
+RUN mkdir -p /root/.gnupg \
+    && chmod 700 /root/.gnupg \
+    && rm -f /root/.bash_logout /root/.bash_profile /root/.bashrc
+
+RUN dnf -y update && \
+    dnf -y --allowerasing --best groupinstall core && dnf clean all
+
+RUN dnf install -y dnf5-plugins && dnf clean all
+RUN dnf group install -y core && dnf clean all
+RUN dnf group install -y base-graphical && dnf clean all
+RUN dnf install -y langpacks-en firewalld openssh tailscale git curl wget rsync && dnf clean all
 #RUN systemctl enable firewalld.service sshd.service tailscaled.service 
 RUN systemctl mask remount-fs.service 
 RUN dnf clean all 
