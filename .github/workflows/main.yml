@@ -44,14 +44,23 @@ jobs:
           remove-large-packages: 'true'
           remove-cached-tools: 'true'
           remove-swapfile: 'true'
-    - name: Build Images
+    - name: Login
       shell: bash
       run: |
         podman login ghcr.io -u ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }}
+    - name: Build Images
+      shell: bash
+      run: |
         podman build -f Containerfile -t ghcr.io/${{ env.TARGET }}:${{ matrix.variant }} --target ${{ matrix.base }} .
-        podman build -f Containerfile -t ghcr.io/${{ env.TARGET }}:${{ matrix.variant }} --target ${{ matrix.desktop }} .
-        podman build -f Containerfile -t ghcr.io/${{ env.TARGET }}:${{ matrix.variant }} --target ${{ matrix.server }} .
         podman push ghcr.io/${{ env.TARGET }}:${{ matrix.base }}
+    - name: Build Images
+      shell: bash
+      run: |
+        podman build -f Containerfile -t ghcr.io/${{ env.TARGET }}:${{ matrix.variant }} --target ${{ matrix.desktop }} .
         podman push ghcr.io/${{ env.TARGET }}:${{ matrix.desktop }}
+    - name: Build Images
+      shell: bash
+      run: |
+        podman build -f Containerfile -t ghcr.io/${{ env.TARGET }}:${{ matrix.variant }} --target ${{ matrix.server }} .
         podman push ghcr.io/${{ env.TARGET }}:${{ matrix.server }}
 
