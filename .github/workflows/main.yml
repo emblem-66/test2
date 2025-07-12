@@ -49,18 +49,40 @@ jobs:
       run: |
         podman login ghcr.io -u ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }}
     - name: Build Images
+      id: build-base
       shell: bash
       run: |
         podman build -f Containerfile -t ghcr.io/${{ env.TARGET }}:${{ matrix.variant }} --target ${{ matrix.base }} .
         podman push ghcr.io/${{ env.TARGET }}:${{ matrix.base }}
     - name: Build Images
+      if: steps.build-base.outcome == 'success'
       shell: bash
       run: |
         podman build -f Containerfile -t ghcr.io/${{ env.TARGET }}:${{ matrix.variant }} --target ${{ matrix.desktop }} .
         podman push ghcr.io/${{ env.TARGET }}:${{ matrix.desktop }}
     - name: Build Images
+      if: steps.build-base.outcome == 'success'
       shell: bash
       run: |
         podman build -f Containerfile -t ghcr.io/${{ env.TARGET }}:${{ matrix.variant }} --target ${{ matrix.server }} .
         podman push ghcr.io/${{ env.TARGET }}:${{ matrix.server }}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
