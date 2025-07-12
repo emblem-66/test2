@@ -1,8 +1,7 @@
 FROM quay.io/fedora/fedora-bootc:latest AS bootc
 RUN whoami
-RUN mkdir -p /root/.gnupg \
-    && chmod 700 /root/.gnupg \
-    && rm -f /root/.bash_logout /root/.bash_profile /root/.bashrc
+#RUN mkdir -p /root/.gnupg \
+RUN chmod 700 /root/*
 RUN dnf install -y dnf5-plugins && dnf clean all
 RUN dnf group install -y core && dnf clean all
 RUN dnf group install -y base-graphical && dnf clean all
