@@ -16,77 +16,8 @@ on:
 
 #--------------------------------------------
 
-#jobs:
-
-#  build-base:
-#    runs-on: ubuntu-latest
-#    permissions:
-#      contents: read
-#      packages: write
-#    env:
-#      TARGET: emblem-66/test2
-#    strategy:
-#      matrix:
-#        variant: [base]
-#    steps:
-#    - name: Checkout Push to Registry action
-#      uses: actions/checkout@v4
-#    - name: Login to ghcr.io
-#      shell: bash
-#      run: podman login ghcr.io -u emblem-66 -p ${{ secrets.GITHUB_TOKEN }}
-#    - name: Maximize build disk space (Only remove unwanted software)
-#      uses: AdityaGarg8/remove-unwanted-software@v5
-      #with:
-      #  remove-android: 'true'
-      #  remove-dotnet: 'true'
-      #  remove-haskell: 'true'
-      #  remove-codeql: 'true'
-      #  remove-docker-images: 'true'
-      #  remove-large-packages: 'true'
-      #  remove-cached-tools: 'true'
-      #  remove-swapfile: 'true'
-#    - name: Build and Push Base Image
-#      run: |
-#        podman build -f Containerfile -t ghcr.io/$TARGET:${{ matrix.variant }} --target ${{ matrix.variant }} .
-#        podman push ghcr.io/$TARGET:${{ matrix.variant }}
-
-#  build-on-base:
-#    needs: build-base
-#    runs-on: ubuntu-latest
-#    permissions:
-#      contents: read
-#      packages: write
-#    env:
-#      TARGET: emblem-66/test2
-#    strategy:
-#      matrix:
-#        variant: [desktop, server]
-#    steps:
-#    - name: Checkout Push to Registry action
-#      uses: actions/checkout@v4
-#    - name: Login to ghcr.io
-#      shell: bash
-#      run: podman login ghcr.io -u emblem-66 -p ${{ secrets.GITHUB_TOKEN }}
-#    - name: Maximize build disk space (Only remove unwanted software)
-#      uses: AdityaGarg8/remove-unwanted-software@v5
-      #with:
-      #    remove-android: 'true'
-      #    remove-dotnet: 'true'
-      #    remove-haskell: 'true'
-      #    remove-codeql: 'true'
-      #    remove-docker-images: 'true'
-      #    remove-large-packages: 'true'
-      #    remove-cached-tools: 'true'
-      #    remove-swapfile: 'true'
-#    - name: Build and Push Base Image
-#      run: |
-#        podman build -f Containerfile -t ghcr.io/$TARGET:${{ matrix.variant }} --target ${{ matrix.variant }} .
-#        podman push ghcr.io/$TARGET:${{ matrix.variant }}
-
-#---
-
 jobs:
-  build-base:
+  build-and-push:
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -96,61 +27,31 @@ jobs:
     #  BASE: base
     strategy:
       matrix:
-        variant: [base-bootc, base-silverblue, base-fedora-ostree-desktops]
+        base: [base-bootc, base-silverblue, base-fedora-ostree-desktops]
+        desktop: [desktop-bootc, desktop-silverblue, desktop-fedora-ostree-desktops]
+        server: [server-bootc, server-silverblue, server-fedora-ostree-desktops]
     steps:
     - name: Checkout Push to Registry action
       uses: actions/checkout@v4
-    - name: Build Image
-      shell: bash
-      run: |
-        podman build -f Containerfile -t ghcr.io/${{ env.TARGET }}:${{ matrix.variant }} --target ${{ matrix.variant }} .
-    - name: Login and Push
+    - name: Maximize build disk space (Only remove unwanted software)
+      uses: AdityaGarg8/remove-unwanted-software@v5
+      with:
+          remove-android: 'true'
+          remove-dotnet: 'true'
+          remove-haskell: 'true'
+          remove-codeql: 'true'
+          remove-docker-images: 'true'
+          remove-large-packages: 'true'
+          remove-cached-tools: 'true'
+          remove-swapfile: 'true'
+    - name: Build Images
       shell: bash
       run: |
         podman login ghcr.io -u ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }}
-        podman push ghcr.io/${{ env.TARGET }}:${{ matrix.variant }}
+        podman build -f Containerfile -t ghcr.io/${{ env.TARGET }}:${{ matrix.variant }} --target ${{ matrix.base }} .
+        podman build -f Containerfile -t ghcr.io/${{ env.TARGET }}:${{ matrix.variant }} --target ${{ matrix.desktop }} .
+        podman build -f Containerfile -t ghcr.io/${{ env.TARGET }}:${{ matrix.variant }} --target ${{ matrix.server }} .
+        podman push ghcr.io/${{ env.TARGET }}:${{ matrix.base }}
+        podman push ghcr.io/${{ env.TARGET }}:${{ matrix.desktop }}
+        podman push ghcr.io/${{ env.TARGET }}:${{ matrix.server }}
 
-  build-desktops:
-    runs-on: ubuntu-latest
-    needs: build-base
-    permissions:
-      contents: read
-      packages: write
-    env:
-      TARGET: emblem-66/image
-    strategy:
-      matrix:
-        variant: [desktop-bootc, desktop-silverblue, desktop-fedora-ostree-desktops]
-    steps:
-    - name: Checkout Push to Registry action
-      uses: actions/checkout@v4
-    - name: Build Image
-      shell: bash
-      run: |
-        podman build -f Containerfile -t ghcr.io/${{ env.TARGET }}:${{ matrix.variant }} --target ${{ matrix.variant }} .
-    - name: Login and Push
-      shell: bash
-      run: |
-        podman login ghcr.io -u ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }}
-        podman push ghcr.io/${{ env.TARGET }}:${{ matrix.variant }}
-
-  build-server:
-    runs-on: ubuntu-latest
-    needs: build-base
-    permissions:
-      contents: read
-      packages: write
-    env:
-      TARGET: emblem-66/image
-    strategy:
-      matrix:
-        variant: [server-bootc, server-silverblue, server-fedora-ostree-desktops]
-    steps:
-    - name: Checkout Push to Registry action
-      uses: actions/checkout@v4
-    - name: Login Build and Push Server Images to ghcr.io
-      shell: bash
-      run: |
-        podman login ghcr.io -u ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }}
-        podman build -f Containerfile -t ghcr.io/${{ env.TARGET }}:${{ matrix.variant }} --target ${{ matrix.variant }} .
-        podman push ghcr.io/${{ env.TARGET }}:${{ matrix.variant }}
