@@ -1,6 +1,6 @@
 FROM quay.io/fedora/fedora-bootc:latest AS bootc
 RUN whoami
-#RUN mkdir -p /root/.gnupg \
+RUN mkdir -p /root/.gnupg
 RUN chmod 700 /root/.gnupg
 RUN dnf install -y dnf5-plugins && dnf clean all
 RUN dnf group install -y core && dnf clean all
