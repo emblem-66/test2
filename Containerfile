@@ -1,7 +1,7 @@
 FROM quay.io/fedora/fedora-bootc:latest AS bootc
 RUN whoami
 #RUN mkdir -p /root/.gnupg
-#RUN chmod 777 /root/.gnupg
+RUN chmod +x /root/.gnupg
 RUN dnf install -y dnf5-plugins osbuild-selinux && dnf clean all #&& rm -rf /root/.gnupg
 #RUN rm -rf /root/.gnupg && dnf group install -y core && dnf clean all
 RUN dnf group install -y base-graphical && dnf clean all
