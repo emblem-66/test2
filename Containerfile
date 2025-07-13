@@ -3,7 +3,7 @@ RUN whoami
 #RUN mkdir -p /root/.gnupg
 #RUN chmod 777 /root/.gnupg
 RUN dnf install -y dnf5-plugins && dnf clean all && rm -rf /root/.gnupg
-RUN dnf group install -y core && dnf clean all
+RUN rm -rf /root/.gnupg && dnf group install -y core && dnf clean all
 RUN dnf group install -y base-graphical && dnf clean all
 RUN dnf install -y langpacks-en firewalld openssh tailscale git curl wget rsync && dnf clean all
 #RUN systemctl enable firewalld.service sshd.service tailscaled.service 
