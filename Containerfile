@@ -12,6 +12,7 @@ RUN dnf clean all
 RUN rpm-ostree cleanup -m 
 RUN ostree container commit 
 RUN bootc container lint  
+RUN rpm -qa | sort
 
 FROM quay.io/fedora/fedora-bootc:latest AS base-bootc
 RUN echo "Starting" \
