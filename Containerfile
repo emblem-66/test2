@@ -7,12 +7,14 @@ RUN dnf install -y dnf5-plugins && dnf clean all #&& rm -rf /root/.gnupg
 #RUN dnf group install -y base-graphical && dnf clean all
 RUN dnf install -y langpacks-en firewalld openssh tailscale git curl wget rsync && dnf clean all
 #RUN systemctl enable firewalld.service sshd.service tailscaled.service 
-RUN systemctl mask remount-fs.service 
-RUN dnf clean all 
+RUN systemctl mask remount-fs.service
+RUN dnf autoremove -y
+RUN dnf clean all
 RUN rpm-ostree cleanup -m 
 RUN ostree container commit 
 RUN bootc container lint  
 RUN rpm -qa | sort
+RUN jq -r .packages[] /usr/share/rpm-ostree/treefile.json
 
 FROM quay.io/fedora/fedora-bootc:latest AS base-bootc
 RUN echo "Starting" \
