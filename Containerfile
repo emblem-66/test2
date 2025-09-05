@@ -1,10 +1,7 @@
 FROM quay.io/fedora/fedora-bootc:latest AS bootc
 #RUN mkdir -p /root/.gnupg
 #RUN chmod +x /root/*
-RUN <<EOF
-dnf install -y dnf5-plugins
-dnf clean all
-EOF
+RUN dnf install -y dnf5-plugins && dnf clean all
 RUN dnf config-manager addrepo --from-repofile=https://pkgs.tailscale.com/stable/fedora/tailscale.repo
 #RUN rm -rf /root/.gnupg && dnf group install -y core && dnf clean all
 #RUN dnf group install -y core && dnf clean all
