@@ -1,7 +1,9 @@
 FROM quay.io/fedora/fedora-bootc:latest AS bootc
 #RUN mkdir -p /root/.gnupg
 #RUN chmod +x /root/*
-RUN dnf install -y dnf5-plugins && dnf clean all #&& rm -rf /root/.gnupg
+RUN <<EOF
+dnf install -y dnf5-plugins && dnf clean all #&& rm -rf /root/.gnupg
+EOF
 RUN dnf config-manager addrepo --from-repofile=https://pkgs.tailscale.com/stable/fedora/tailscale.repo
 #RUN rm -rf /root/.gnupg && dnf group install -y core && dnf clean all
 #RUN dnf group install -y core && dnf clean all
@@ -18,6 +20,7 @@ RUN ostree container commit
 RUN bootc container lint  
 RUN rpm -qa | sort
 RUN jq -r .packages[] /usr/share/rpm-ostree/treefile.json
+
 
 
 
