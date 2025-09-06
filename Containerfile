@@ -1,4 +1,4 @@
-FROM quay.io/fedora/fedora-bootc:latest AS bootc
+FROM quay.io/fedora/fedora-bootc:latest AS bootc-cosmic
 RUN echo "" \
  && dnf install -y dnf5-plugins \
  && rpm -qa | sort \
@@ -21,7 +21,28 @@ RUN echo "" \
  && bootc container lint
 
 
-
+FROM quay.io/fedora/fedora-bootc:latest AS bootc-gnome
+RUN echo "" \
+ && dnf install -y dnf5-plugins \
+ && rpm -qa | sort \
+# && jq -r .packages[] /usr/share/rpm-ostree/treefile.json \
+ && dnf config-manager addrepo --from-repofile=https://pkgs.tailscale.com/stable/fedora/tailscale.repo \
+ && dnf install -y tailscale \
+ && systemctl enable tailscaled.service \
+# && dnf copr enable -y ryanabx/cosmic-epoch \
+# && dnf install -y cosmic-desktop \
+# && systemctl enable cosmic-greeter.service \
+ && dnf install gnome-shell \
+ && rpm -qa | sort \
+# && jq -r .packages[] /usr/share/rpm-ostree/treefile.json \
+# && systemctl set-default graphical.target \
+# && systemctl mask remount-fs.service \
+# && dnf autoremove -y \
+ && dnf clean all \
+ && rpm-ostree cleanup -m \
+ && rm -rf /var/* /tmp/* \
+ && ostree container commit \
+ && bootc container lint
 
 
 
