@@ -1,8 +1,25 @@
 FROM quay.io/fedora/fedora-bootc:latest AS bootc
+RUN echo "" \
+ && dnf config-manager addrepo --from-repofile=https://pkgs.tailscale.com/stable/fedora/tailscale.repo \
+ && install -y tailscale \
+ && systemctl enable tailscaled.service \
+ && dnf copr enable -y ryanabx/cosmic-epoch \
+ && dnf install -y cosmic-desktop \
+ && systemctl enable cosmic-greeter.service \
+ && rpm -qa | sort \
+ && jq -r .packages[] /usr/share/rpm-ostree/treefile.json \
+# && systemctl set-default graphical.target \
+# && systemctl mask remount-fs.service \
+# && dnf autoremove -y \
+ && dnf clean all \
+ && rpm-ostree cleanup -m \
+ && ostree container commit \
+ && bootc container lint
+
+
 #RUN mkdir -p /root/.gnupg
 #RUN chmod +x /root/*
 RUN dnf install -y dnf5-plugins && dnf clean all
-RUN dnf config-manager addrepo --from-repofile=https://pkgs.tailscale.com/stable/fedora/tailscale.repo
 #RUN rm -rf /root/.gnupg && dnf group install -y core && dnf clean all
 #RUN dnf group install -y core && dnf clean all
 #RUN dnf group install -y base-graphical && dnf clean all
@@ -35,7 +52,26 @@ RUN jq -r .packages[] /usr/share/rpm-ostree/treefile.json
 
 
 
-
+FROM quay.io/fedora/fedora-bootc:latest AS bootc1
+#RUN mkdir -p /root/.gnupg
+#RUN chmod +x /root/*
+RUN dnf install -y dnf5-plugins && dnf clean all
+RUN dnf config-manager addrepo --from-repofile=https://pkgs.tailscale.com/stable/fedora/tailscale.repo
+#RUN rm -rf /root/.gnupg && dnf group install -y core && dnf clean all
+#RUN dnf group install -y core && dnf clean all
+#RUN dnf group install -y base-graphical && dnf clean all
+RUN dnf install -y langpacks-en firewalld openssh tailscale git curl wget rsync gnome-shell ptyxis nautilus xdg-user-dirs xdg-user-dirs-gtk flatpak bash-completion tar bzip2
+RUN systemctl enable firewalld.service sshd.service tailscaled.service
+RUN systemctl enable gdm
+RUN systemctl set-default graphical.target
+RUN systemctl mask remount-fs.service
+RUN dnf autoremove -y
+RUN dnf clean all
+RUN rpm-ostree cleanup -m 
+RUN ostree container commit 
+RUN bootc container lint  
+RUN rpm -qa | sort
+RUN jq -r .packages[] /usr/share/rpm-ostree/treefile.json
 
 
 
