@@ -24,7 +24,7 @@ jobs:
       packages: write
     strategy:
       matrix:
-        base: [bootc] #, base-bootc, base-silverblue, base-fedora-ostree-desktops]
+        base: [bootc-cosmic, bootc-gnome] #, base-bootc, base-silverblue, base-fedora-ostree-desktops]
         #desktop: [desktop-bootc, desktop-silverblue, desktop-fedora-ostree-desktops]
         #server: [server-bootc , server-silverblue, server-fedora-ostree-desktops]
     steps:
