@@ -2,7 +2,7 @@ FROM quay.io/fedora/fedora-bootc:latest AS bootc
 RUN echo "" \
  && dnf install -y dnf5-plugins \
  && rpm -qa | sort \
- && jq -r .packages[] /usr/share/rpm-ostree/treefile.json \
+# && jq -r .packages[] /usr/share/rpm-ostree/treefile.json \
  && dnf config-manager addrepo --from-repofile=https://pkgs.tailscale.com/stable/fedora/tailscale.repo \
  && dnf install -y tailscale \
  && systemctl enable tailscaled.service \
@@ -10,7 +10,7 @@ RUN echo "" \
  && dnf install -y cosmic-desktop \
 # && systemctl enable cosmic-greeter.service \
  && rpm -qa | sort \
- && jq -r .packages[] /usr/share/rpm-ostree/treefile.json \
+# && jq -r .packages[] /usr/share/rpm-ostree/treefile.json \
 # && systemctl set-default graphical.target \
 # && systemctl mask remount-fs.service \
 # && dnf autoremove -y \
