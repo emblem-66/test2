@@ -4,7 +4,7 @@ RUN echo "" \
  && rpm -qa | sort \
  && jq -r .packages[] /usr/share/rpm-ostree/treefile.json \
  && dnf config-manager addrepo --from-repofile=https://pkgs.tailscale.com/stable/fedora/tailscale.repo \
- && install -y tailscale \
+ && dnf install -y tailscale \
  && systemctl enable tailscaled.service \
  && dnf copr enable -y ryanabx/cosmic-epoch \
  && dnf install -y cosmic-desktop \
