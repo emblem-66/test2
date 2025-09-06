@@ -8,7 +8,7 @@ RUN echo "" \
  && systemctl enable tailscaled.service \
  && dnf copr enable -y ryanabx/cosmic-epoch \
  && dnf install -y cosmic-desktop \
- && systemctl enable cosmic-greeter.service \
+# && systemctl enable cosmic-greeter.service \
  && rpm -qa | sort \
  && jq -r .packages[] /usr/share/rpm-ostree/treefile.json \
 # && systemctl set-default graphical.target \
@@ -16,6 +16,7 @@ RUN echo "" \
 # && dnf autoremove -y \
  && dnf clean all \
  && rpm-ostree cleanup -m \
+ && rm -rf /var/* /tmp/* \
  && ostree container commit \
  && bootc container lint
 
